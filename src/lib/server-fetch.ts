@@ -12,11 +12,9 @@ const serverFetchHelper = async (
   const accessToken = await getCookie("accessToken");
 
   if (endpoint !== "/auth/refresh-token") {
-    console.log("refreshtoken block");
     await getNewAccessToken();
   }
 
-  console.log('after refreshing token');
   const response = await fetch(`${BACKEND_API_URL}${endpoint}`, {
     headers: {
       Cookie: accessToken ? `accessToken=${accessToken}` : "",
@@ -24,8 +22,6 @@ const serverFetchHelper = async (
     },
     ...restOptions,
   });
-
-  console.log("response from serverfetchhelper", response);
 
   return response;
 };

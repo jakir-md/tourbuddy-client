@@ -17,10 +17,7 @@ export interface IUserInfo {
   updatedAt: Date;
 }
 
-export enum UserRole {
-  USER,
-  ADMIN,
-}
+export type UserRole = "USER" | "ADMIN";
 
 export enum SubscriptionStatus {
   PENDING,

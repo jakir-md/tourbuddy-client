@@ -1,10 +1,12 @@
 import PublicFooter from "@/components/shared/PublicFooter";
 import PublicNavbar from "@/components/shared/PublicNavbar";
+import { getUserInfo } from "@/services/auth/getUserInfo";
 
-const CommonLayout = ({ children }: { children: React.ReactNode }) => {
+const CommonLayout = async ({ children }: { children: React.ReactNode }) => {
+  const user = await getUserInfo();
   return (
     <>
-      <PublicNavbar />
+      <PublicNavbar user={user} />
       {children}
       <PublicFooter />
     </>

@@ -13,6 +13,9 @@ import {
   LogIn,
   Crown,
   Shield,
+  Bell,
+  MessageCircle,
+  Plus,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -26,6 +29,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { logOut } from "@/services/auth/logout";
 
 // 1. Type Definitions (Matches your Auth Logic)
 interface User {
@@ -62,6 +66,10 @@ export default function PublicNavbar({ user }: NavbarProps) {
     ${isActive(path) ? "text-primary font-bold" : "text-muted-foreground"}
   `;
 
+  const handleLogout = async () => {
+    console.log("logged out clicked")
+    await logOut();
+  };
   // 3. Navigation Links Config
   const navLinks = [
     { href: "/", label: "Home" },
@@ -102,16 +110,38 @@ export default function PublicNavbar({ user }: NavbarProps) {
         </nav>
 
         {/* RIGHT: Auth & Mobile Toggle */}
-        <div className="flex items-center gap-4">
-          {/* If Logged In */}
-          {user ? (
-            <div className="hidden md:flex items-center gap-4">
-              {/* Add Trip Button (Call to Action) */}
-              <Button size="sm" className="hidden lg:flex" asChild>
-                <Link href="/trips/create">Create Trip</Link>
-              </Button>
 
-              {/* User Dropdown */}
+        <div className="flex items-center gap-4">
+          {user && user.email ? (
+            <div className="hidden md:flex items-center gap-4">
+              <div className="flex items-center gap-4">
+                <Button
+                  size="sm"
+                  className="hidden lg:flex bg-emerald-600 hover:bg-emerald-700"
+                >
+                  <Plus className="w-4 h-4 mr-1" /> Create Trip
+                </Button>
+
+                <Link
+                  href="/messages"
+                  className="relative p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  {/* Unread Badge (Conditional) */}
+                  <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white" />
+                </Link>
+
+                {/* 3. Notifications (Icon + Badge) */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="relative p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+                    <Bell className="w-5 h-5" />
+                    <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    {/* Notification Items */}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -198,7 +228,7 @@ export default function PublicNavbar({ user }: NavbarProps) {
 
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuItem className="text-red-600 focus:text-red-600 focus:bg-red-50 cursor-pointer">
+                  <DropdownMenuItem onClick={handleLogout} className="text-red-600 focus:text-red-600 focus:bg-red-50 cursor-pointer">
                     <LogOut className="mr-2 h-4 w-4" />
                     Log out
                   </DropdownMenuItem>
@@ -262,7 +292,10 @@ export default function PublicNavbar({ user }: NavbarProps) {
                       >
                         <Map className="h-5 w-5" /> Create Trip
                       </Link>
-                      <button className="flex items-center gap-2 text-lg font-medium text-red-600 text-left mt-2">
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-2 text-lg font-medium text-red-600 text-left mt-2"
+                      >
                         <LogOut className="h-5 w-5" /> Logout
                       </button>
                     </>
