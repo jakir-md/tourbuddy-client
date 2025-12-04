@@ -37,6 +37,9 @@ export const loginUser = async (
       loginValidationZodSchema
     ).data;
 
+    console.log("validatedPayload", validatedPayload);
+
+    console.log("login ts: before success");
     const res = await serverFetch.post("/auth/login", {
       body: JSON.stringify(validatedPayload),
       headers: {
@@ -45,6 +48,7 @@ export const loginUser = async (
     });
 
     const result = await res.json();
+    console.log("login ts: after success");
 
     const setCookieHeaders = res.headers.getSetCookie();
 
@@ -87,7 +91,7 @@ export const loginUser = async (
       path: refreshTokenObject.Path || "/",
       sameSite: refreshTokenObject["SameSite"] || "none",
     });
-    
+
     const verifiedToken: JwtPayload | string = jwt.verify(
       accessTokenObject.accessToken,
       process.env.JWT_SECRET as string
@@ -101,19 +105,6 @@ export const loginUser = async (
 
     if (!result.success) {
       throw new Error(result.message || "Login failed");
-    }
-
-    if (redirectTo && result.data.needPasswordChange) {
-      const requestedPath = redirectTo.toString();
-      if (isValidRedirectForRole(requestedPath, userRole)) {
-        redirect(`/reset-password?redirect=${requestedPath}`);
-      } else {
-        redirect("/reset-password");
-      }
-    }
-
-    if (result.data.needPasswordChange) {
-      redirect("/reset-password");
     }
 
     if (redirectTo) {

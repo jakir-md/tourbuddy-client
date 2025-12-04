@@ -1,7 +1,5 @@
 "use server";
-
 import jwt from "jsonwebtoken";
-
 export const verifyAccessToken = async (token: string) => {
   try {
     const verifiedAccessToken = jwt.verify(

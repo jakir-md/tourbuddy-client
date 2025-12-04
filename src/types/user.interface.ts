@@ -1,39 +1,37 @@
 export interface IUserInfo {
-    id: string;
-    name: string;
-    email: string;
-    image?: string;
+  id: string;
+  name: string;
+  email: string;
+  image?: string;
 
-    role: UserRole;
-    isVerified: boolean;
+  role: UserRole;
+  isVerified: boolean;
 
-    bio?: string;
-    age?: number;
-    gender?: string;
-    interests: string[];
+  bio?: string;
+  age?: number;
+  gender?: string;
+  interests: string[];
 
-    subscriptionStatus: SubscriptionStatus;
-    createdAt: Date;
-    updatedAt: Date;
+  subscriptionStatus: SubscriptionStatus;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-
 export enum UserRole {
-    USER,
-    MODERATOR,
-    ADMIN
+  USER,
+  ADMIN,
 }
 
 export enum SubscriptionStatus {
-    PENDING,
-    ACCEPTED,
-    REJECTED
+  PENDING,
+  ACCEPTED,
+  REJECTED,
 }
 
 export enum TripType {
-    SOLO,
-    BACKPACKING,
-    LUXURY,
-    BUSINESS,
-    FAMILY
+  SOLO,
+  BACKPACKING,
+  LUXURY,
+  BUSINESS,
+  FAMILY,
 }

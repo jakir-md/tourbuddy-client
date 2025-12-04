@@ -18,7 +18,6 @@ export const registerUser = async (
       profilePhoto: formData.get("file"),
     };
 
-    console.log("payload", payload);
     if (
       zodValidator(payload, registerUserValidationZodSchema).success === false
     ) {
@@ -44,11 +43,15 @@ export const registerUser = async (
       newFormData.append("file", formData.get("file") as Blob);
     }
 
+    console.log("register ts: before success");
+    
     const res = await serverFetch.post("/user/register", {
       body: newFormData,
     });
 
     const result = await res.json();
+
+    console.log("register ts: after success", result);
 
     if (result.success) {
       await loginUser(_currentState, formData);
