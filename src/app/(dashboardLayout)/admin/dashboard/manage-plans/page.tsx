@@ -1,9 +1,11 @@
 import { SubscriptionPlans } from "@/components/modules/admin/plans/SubscriptionPlans";
+import { getAllSubscriptionPlans } from "@/services/admin/subscriptionPlans";
 
-export default function AdminSubscriptionPlansPage() {
+export default async function AdminSubscriptionPlansPage() {
+  const allPlans = await getAllSubscriptionPlans();
   return (
     <div>
-      <SubscriptionPlans />
+      <SubscriptionPlans allPlans={allPlans.data} />
     </div>
   );
 }

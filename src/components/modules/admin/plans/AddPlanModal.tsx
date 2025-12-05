@@ -14,7 +14,6 @@ import { Field, FieldLabel } from "@/components/ui/field";
 import InputFieldError from "@/components/shared/InputFieldError";
 import { addNewPlan } from "@/services/admin/subscriptionPlans";
 
-// 2. Main Component
 export default function AddPlanModal({
   open,
   setOpen,
@@ -24,14 +23,13 @@ export default function AddPlanModal({
 }) {
   const formRef = useRef<HTMLFormElement>(null);
   const [state, formAction, isPending] = useActionState(addNewPlan, null);
-
-  // Close modal on success
-  // useEffect(() => {
-  //   if (state.message === "success") {
-  //     setOpen(false);
-  //     formRef.current?.reset();
-  //   }
-  // }, [state.message, setOpen]);
+  console.log("state", state);
+  useEffect(() => {
+    if (state && !state.error && state?.message === "success") {
+      setOpen(false);
+      formRef.current?.reset();
+    }
+  }, [state, setOpen]);
 
   const handleClose = () => setOpen(false);
 

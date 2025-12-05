@@ -3,13 +3,14 @@
 import { serverFetch } from "@/lib/server-fetch";
 import { zodValidator } from "@/lib/zodValidator";
 import { addSubscriptionPlanSchema } from "@/zod/plan.validation";
+import { revalidateTag } from "next/cache";
 
 export const addNewPlan = async (initialState: any, formData: FormData) => {
   const payload = {
     name: formData.get("name"),
     description: formData.get("description"),
     price: formData.get("price"),
-    currency: "BDT", // Hardcoded per your schema default
+    currency: "BDT",
     durationInDays: formData.get("durationInDays"),
     maxTrips: formData.get("maxTrips"),
     maxRequests: formData.get("maxRequests"),
@@ -18,11 +19,8 @@ export const addNewPlan = async (initialState: any, formData: FormData) => {
     isOverseas: formData.get("isOverseas") === "on",
   };
 
-  console.log("subscription payload", payload);
-
   const validatedPayload = zodValidator(payload, addSubscriptionPlanSchema);
   if (!validatedPayload.success) {
-    console.log("validated payload", validatedPayload);
     return validatedPayload;
   }
 
@@ -42,7 +40,7 @@ export const addNewPlan = async (initialState: any, formData: FormData) => {
   };
 
   try {
-    const response = await serverFetch.post("/subscriptions/create", {
+    const response = await serverFetch.post("/subscription/create", {
       body: JSON.stringify(backendPayload),
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +48,9 @@ export const addNewPlan = async (initialState: any, formData: FormData) => {
     });
 
     const result = await response.json();
-
+    if (result.success) {
+      revalidateTag("all-subscriptions", { expire: 0 });
+    }
     return result;
   } catch (error: any) {
     console.log(error);
@@ -64,5 +64,23 @@ export const addNewPlan = async (initialState: any, formData: FormData) => {
       formData: validatedPayload,
     };
   }
-  console.log(backendPayload);
+};
+
+export const getAllSubscriptionPlans = async () => {
+  try {
+    const response = await serverFetch.get("/subscription/all-plans", {
+      cache: "force-cache",
+      next: { tags: ["all-subscriptions"] },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error: any) {
+    return {
+      data: [],
+      error:
+        process.env.NODE_ENV === "development"
+          ? error.message
+          : "Something went wrong while fetching subscriptions",
+    };
+  }
 };

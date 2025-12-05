@@ -56,7 +56,7 @@ export const userNavitems = (): NavSection[] => {
         },
         {
           title: "Subscription",
-          url: "/dashboard/billing",
+          url: "/dashboard/subscriptions",
           icon: "CreditCard",
         },
         { title: "Settings", url: "/dashboard/settings", icon: "Settings" },

@@ -12,18 +12,12 @@ export interface IUserInfo {
   gender?: string;
   interests: string[];
 
-  subscriptionStatus: SubscriptionStatus;
+  subscription: any;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export type UserRole = "USER" | "ADMIN";
-
-export enum SubscriptionStatus {
-  PENDING,
-  ACCEPTED,
-  REJECTED,
-}
 
 export enum TripType {
   SOLO,
