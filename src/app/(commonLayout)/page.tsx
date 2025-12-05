@@ -3,9 +3,7 @@ import HeroSection from "@/components/modules/home/HeroSection";
 import TopDestinations from "@/components/modules/home/TopDestinations";
 import TopTravelers from "@/components/modules/home/TopTravelers";
 import WhyChooseUs from "@/components/modules/home/WhyChooseUs";
-import CreateTripWizard from "@/components/modules/trip/CreateTripWizard";
 import { TripCard } from "@/components/modules/trip/TripCard";
-import TripDetailsView from "@/components/modules/trip/TripDetails";
 const demoTrip = {
   id: "trip-123",
   destination: "Santorini, Greece",
@@ -31,9 +29,7 @@ export default function page() {
       <BrowseCategories />
       <TopTravelers />
       <WhyChooseUs />
-      <CreateTripWizard />
       <TripCard trip={demoTrip} />
-      <TripDetailsView />
     </>
   );
 }

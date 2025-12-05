@@ -49,7 +49,11 @@ export default function DashBoardSidebarContent({
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">TravelBuddy</span>
-                  <span className="truncate text-xs">Traveler Dashboard</span>
+                  <span className="truncate text-xs">
+                    {user.role === "ADMIN"
+                      ? "Admin Dashboard"
+                      : "User Dashboard"}
+                  </span>
                 </div>
               </Link>
             </SidebarMenuButton>
@@ -62,11 +66,10 @@ export default function DashBoardSidebarContent({
       <SidebarContent>
         <ScrollArea className="h-[calc(100vh-8rem)]">
           <div className="p-2">
-            {/* Create Trip CTA */}
             {state === "expanded" && user.role === "USER" && (
               <div className="mb-4 px-2">
                 <Link
-                  href="/trips/create"
+                  href="/dashboard/allTrips"
                   className="flex items-center justify-center w-full gap-2 bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-md text-sm font-medium transition-colors shadow-sm"
                 >
                   <Plus className="w-4 h-4" /> Plan Trip
