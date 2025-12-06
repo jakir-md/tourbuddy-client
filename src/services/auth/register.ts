@@ -42,16 +42,12 @@ export const registerUser = async (
     if (formData.get("file")) {
       newFormData.append("file", formData.get("file") as Blob);
     }
-
-    console.log("register ts: before success");
     
     const res = await serverFetch.post("/user/register", {
       body: newFormData,
     });
 
     const result = await res.json();
-
-    console.log("register ts: after success", result);
 
     if (result.success) {
       await loginUser(_currentState, formData);
