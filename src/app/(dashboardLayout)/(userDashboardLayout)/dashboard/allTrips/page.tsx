@@ -1,11 +1,10 @@
 import CreateTripWizard from "@/components/modules/trip/CreateTripWizard";
-import TripDetailsView from "@/components/modules/trip/TripDetails";
+import TripDetails from "@/components/modules/trip/TripDetails";
 
 const page = () => {
   return (
     <div>
       <CreateTripWizard />
-      <TripDetailsView />
     </div>
   );
 };

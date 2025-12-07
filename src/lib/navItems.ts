@@ -38,7 +38,7 @@ export const userNavitems = (): NavSection[] => {
         { title: "My Trips", url: "/dashboard/trips", icon: "Map" },
         {
           title: "Join Requests",
-          url: "/dashboard/requests",
+          url: "/dashboard/join-requests",
           icon: "UserPlus",
           badge: 2,
         },

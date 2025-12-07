@@ -34,7 +34,7 @@ export default function BookingCard({
   trip,
   requestStatus,
   onRequestJoin,
-  isProcessing = false,
+  isProcessing,
 }: BookingCardProps) {
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString("en-US", {

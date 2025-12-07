@@ -2,7 +2,8 @@ import { serverFetch } from "@/lib/server-fetch";
 
 export const getAllTrips = async () => {
   try {
-    const response = await serverFetch.get("/trip/all-trips");
+    const response = await serverFetch.get("/trip/all-trips", {
+    });
     const result = await response.json();
     return result;
   } catch (error: any) {

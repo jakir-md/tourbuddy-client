@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import Link from "next/link";
 import {
   Calendar,
@@ -26,6 +26,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import BookingCard from "./BookingCard";
+import { requestForJoining } from "@/services/joinRequest/joinRequest";
 
 // 1. Type Definitions based on your provided Data
 interface User {
@@ -34,6 +35,8 @@ interface User {
   profilePhoto: string;
   isVerified: boolean;
 }
+
+type RequestStatus = "PENDING" | "ACCEPTED" | "REJECTED" | null;
 
 interface ItineraryItem {
   day: number;
@@ -57,9 +60,23 @@ interface TripData {
   joinedUsers?: User[]; // NEW: Array of users who joined
 }
 
-export default function TripDetails({ trip }: { trip: TripData }) {
+export default function TripDetails({
+  trip,
+  requestStatus,
+  loginUserId,
+}: {
+  trip: TripData;
+  loginUserId: string;
+  requestStatus: RequestStatus;
+}) {
   const [isImageModalOpen, setImageModalOpen] = useState(false);
-  const [item, setItem] = useState();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const handleRequest = async () => {
+    setIsProcessing(false);
+    await requestForJoining(trip.id);
+    setIsProcessing(true);
+  };
+
   // 2. Data Parsing & Formatting
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString("en-US", {
@@ -350,16 +367,18 @@ export default function TripDetails({ trip }: { trip: TripData }) {
 
         {/* RIGHT COLUMN (Sticky Booking Card) */}
         <div className="lg:col-span-1">
-          <BookingCard
-            trip={{
-              budget: trip.budget,
-              endDate: trip.endDate,
-              startDate: trip.startDate,
-            }}
-            onRequestJoin={() => setItem}
-            requestStatus={"REJECTED"}
-            isProcessing
-          />
+          {trip.user.id !== loginUserId && (
+            <BookingCard
+              trip={{
+                budget: trip.budget,
+                endDate: trip.endDate,
+                startDate: trip.startDate,
+              }}
+              onRequestJoin={handleRequest}
+              requestStatus={requestStatus}
+              isProcessing={isProcessing}
+            />
+          )}
         </div>
       </div>
     </div>
