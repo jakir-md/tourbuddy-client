@@ -65,6 +65,31 @@ export const userNavitems = (): NavSection[] => {
   ];
 };
 
+export const moderatorNavItems = (): NavSection[] => {
+  const defaultDashboard = getDefaultDashboardRoute("MODERATOR");
+  return [
+    {
+      title: "Overview",
+      items: [
+        {
+          title: "OverView",
+          icon: "LayoutDashboard",
+          url: defaultDashboard,
+        },
+      ],
+    },
+    {
+      title: "Trips Management",
+      items: [
+        {
+          title: "Review Trip",
+          icon: "LayoutDashboard",
+          url: "/moderator/dashboard/approve-trips",
+        },
+      ],
+    },
+  ];
+};
 export const adminNavItems = (): NavSection[] => {
   const defaultDashboard = getDefaultDashboardRoute("ADMIN");
   return [
@@ -137,6 +162,8 @@ export const getNavItemsByRole = (role: UserRole): NavSection[] => {
       return [...userNavitems()];
     case "ADMIN":
       return [...adminNavItems()];
+    case "MODERATOR":
+      return [...moderatorNavItems()];
     default:
       return [];
   }

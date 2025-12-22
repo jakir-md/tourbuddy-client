@@ -12,7 +12,7 @@ export const getJoinRequestStatus = async (tripId: string) => {
       },
       cache: "force-cache",
       next: {
-        tags: ["join-request"],
+        tags: ["join-request-status"],
       },
     });
     const result = await response.json();
@@ -29,16 +29,16 @@ export const getJoinRequestStatus = async (tripId: string) => {
   }
 };
 
-export const requestForJoining = async (tripId: string) => {
+export const requestForJoining = async (tripId: string, adminId: string) => {
   console.log("request for joining called");
   try {
     const response = await serverFetch.post("/join-request/request", {
-      body: JSON.stringify({ tripId }),
+      body: JSON.stringify({ tripId, adminId }),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    revalidateTag("join-request", { expire: 0 });
+    revalidateTag("join-request-status", { expire: 0 });
     const result = await response.json();
     return result;
   } catch (error: any) {
@@ -61,6 +61,7 @@ export const acceptJoinRequest = async (tripId: string, userId: string) => {
         "Content-Type": "application/json",
       },
     });
+    revalidateTag("join-requests", { expire: 0 });
     const result = await response.json();
     return result;
   } catch (error: any) {
@@ -83,6 +84,7 @@ export const rejectJoinRequest = async (tripId: string, userId: string) => {
         "Content-Type": "application/json",
       },
     });
+    revalidateTag("join-requests", { expire: 0 });
     const result = await response.json();
     return result;
   } catch (error: any) {
@@ -97,9 +99,12 @@ export const rejectJoinRequest = async (tripId: string, userId: string) => {
   }
 };
 
-export const getAllRequests = async (tripId: string, userId: string) => {
+export const getAllRequests = async () => {
   try {
-    const response = await serverFetch.get("/join-request");
+    const response = await serverFetch.get("/join-request", {
+      cache: "no-store",
+      next: { tags: ["join-requests"] },
+    });
     const result = await response.json();
     return result;
   } catch (error: any) {

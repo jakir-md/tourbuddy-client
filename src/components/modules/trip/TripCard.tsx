@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import { Calendar, MapPin, Users, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -12,6 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 interface TripCardProps {
   tripInfo: {
     id: string;
+    slug:string;
     destination: string;
     startDate: string;
     endDate: string;
@@ -24,6 +24,7 @@ interface TripCardProps {
       isVerified: string;
       profilePhoto: string;
     };
+    bannerImage:string
   };
 }
 
@@ -38,6 +39,8 @@ export function TripCard({
     startDate,
     type,
     user,
+    slug,
+    bannerImage
   },
 }: TripCardProps) {
   // Format Date (e.g., "12 Oct - 18 Oct")
@@ -48,12 +51,12 @@ export function TripCard({
     });
 
   return (
-    <Link href={`/trips/${id}`} className="group block h-full">
+    <Link href={`/trips/${slug}`} className="group block h-full">
       <Card className="h-full overflow-hidden border-slate-200 transition-all duration-300 hover:shadow-lg hover:border-primary/20 flex flex-col pt-0">
         {/* Image Section */}
         <div className="relative h-56 w-full overflow-hidden bg-slate-100">
           <img
-            src={photos[0]}
+            src={bannerImage}
             alt={destination}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />

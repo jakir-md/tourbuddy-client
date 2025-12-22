@@ -1,10 +1,16 @@
+"use server";
 import { serverFetch } from "@/lib/server-fetch";
 
-export const getAllTrips = async () => {
+export const getAllTrips = async (queryString?: string) => {
   try {
-    const response = await serverFetch.get("/trip/all-trips", {
-    });
+    const response = await serverFetch.get(
+      `/trip/all-trips${queryString ? `?${queryString}` : ""}`,
+      {
+        cache: "no-store",
+      }
+    );
     const result = await response.json();
+    console.log("all trips from server", result);
     return result;
   } catch (error: any) {
     console.log("Error occured while fetching all trips", error);

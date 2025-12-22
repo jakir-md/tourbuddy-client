@@ -1,4 +1,4 @@
-export type UserRole = "ADMIN" | "USER";
+export type UserRole = "ADMIN" | "USER" | "MODERATOR";
 
 export type RouteConfig = {
   exact: string[];
@@ -22,6 +22,11 @@ export const userProtectedRoutes: RouteConfig = {
   exact: [],
 };
 
+export const moderatorProtectedRoutes: RouteConfig = {
+  patterns: [/^\/moderator(\/.*)?$/],
+  exact: [],
+};
+
 export const isAuthRoute = (pathname: string) => {
   return authRoutes.some((route: string) => route === pathname);
 };
@@ -38,7 +43,7 @@ export const isRouteMatches = (
 
 export const getRouteOwner = (
   pathname: string
-): "ADMIN" | "USER" | "COMMON" | null => {
+): "ADMIN" | "USER" | "COMMON" | "MODERATOR" | null => {
   if (isRouteMatches(pathname, adminProtectedRoutes)) {
     return "ADMIN";
   }
@@ -48,6 +53,7 @@ export const getRouteOwner = (
   if (isRouteMatches(pathname, commonProtectedRoutes)) {
     return "COMMON";
   }
+  if (isRouteMatches(pathname, moderatorProtectedRoutes)) return "MODERATOR";
   return null;
 };
 
@@ -56,6 +62,8 @@ export const getDefaultDashboardRoute = (role: UserRole): string => {
     return "/admin/dashboard";
   } else if (role === "USER") {
     return "/dashboard";
+  } else if (role === "MODERATOR") {
+    return "/moderator/dashboard";
   }
   return "/";
 };

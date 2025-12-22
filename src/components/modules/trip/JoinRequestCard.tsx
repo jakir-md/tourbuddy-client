@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import {
   ArrowRight,
   MessageCircle,
@@ -10,13 +9,13 @@ import {
   Clock,
   CheckCircle2,
 } from "lucide-react";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-// Define the possible statuses based on your Prisma Schema
 type RequestStatus = "PENDING" | "ACCEPTED" | "REJECTED" | null;
 
 interface BookingCardProps {
@@ -128,7 +127,7 @@ export default function BookingCard({
             "Congratulations! You are officially part of this trip. Check your email for next steps.",
           alert: null,
         };
-      default: // NULL (Open to Join)
+      default:
         return {
           headerColor: "bg-gradient-to-r from-emerald-500 to-teal-500",
           badge: (

@@ -38,7 +38,7 @@ export default async function CommonDashboardLayout({
         </header>
 
         {/* Page Content */}
-        <div className="flex-1 p-4 md:p-8">{children}</div>
+        <div className="flex-1">{children}</div>
       </main>
     </SidebarProvider>
   );

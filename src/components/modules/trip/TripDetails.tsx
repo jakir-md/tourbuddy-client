@@ -25,8 +25,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import BookingCard from "./BookingCard";
+import BookingCard from "./JoinRequestCard";
 import { requestForJoining } from "@/services/joinRequest/joinRequest";
+import DetailedItinerary from "./DetailItenerary";
 
 // 1. Type Definitions based on your provided Data
 interface User {
@@ -51,7 +52,7 @@ interface TripData {
   startDate: string; // ISO Date String
   endDate: string; // ISO Date String
   activities: string[];
-  itinerary: string; // JSON string from DB
+  itinerary: any; // JSON string from DB
   type: string;
   destination: string;
   title?: string; // Optional if not in DB, can derive or use placeholder
@@ -73,7 +74,7 @@ export default function TripDetails({
   const [isProcessing, setIsProcessing] = useState(false);
   const handleRequest = async () => {
     setIsProcessing(false);
-    await requestForJoining(trip.id);
+    await requestForJoining(trip.id, trip.user.id);
     setIsProcessing(true);
   };
 
@@ -95,7 +96,7 @@ export default function TripDetails({
   // Parse Itinerary safely
   let itineraryList: ItineraryItem[] = [];
   try {
-    itineraryList = JSON.parse(trip.itinerary);
+    itineraryList = trip.itinerary;
   } catch (e) {
     console.error("Failed to parse itinerary", e);
   }
@@ -122,8 +123,136 @@ export default function TripDetails({
     },
   ];
 
+//   const demoItinerary = [
+//   {
+//     day: 1,
+//     title: "Arrival & First Tastes",
+//     date: "Oct 12, 2025",
+//     activities: [
+//       {
+//         id: "a1",
+//         time: "10:00 AM",
+//         type: "travel",
+//         title: "Airport Transfer",
+//         description: "Take the Narita Express to Shinjuku Station.",
+//         location: { name: "Narita Airport" },
+//         image: 'https://res.cloudinary.com/dymemmfp6/image/upload/v1765110909/hrngwwa3r4r-1765110904955-screenshot%2C2025%2C12%2C01%2C092651.png'
+//       },
+//       {
+//         id: "a2",
+//         time: "01:00 PM",
+//         type: "food",
+//         title: "Ichiran Ramen",
+//         description: "Famous solo-booth ramen experience. Order the level 4 spice.",
+//         location: { name: "Shinjuku East" }
+//       },
+//       {
+//         id: "a3",
+//         time: "03:00 PM",
+//         type: "visit",
+//         title: "Check-in at Hotel",
+//         description: "Relax and freshen up.",
+//         location: { name: "Gracery Hotel" }
+//       }
+//     ]
+//   },
+//   {
+//     day: 2,
+//     title: "Arrival & First Tastes",
+//     date: "Oct 12, 2025",
+//     activities: [
+//       {
+//         id: "a1",
+//         time: "10:00 AM",
+//         type: "travel",
+//         title: "Airport Transfer",
+//         description: "Take the Narita Express to Shinjuku Station.",
+//         location: { name: "Narita Airport" }
+//       },
+//       {
+//         id: "a2",
+//         time: "01:00 PM",
+//         type: "food",
+//         title: "Ichiran Ramen",
+//         description: "Famous solo-booth ramen experience. Order the level 4 spice.",
+//         location: { name: "Shinjuku East" }
+//       },
+//       {
+//         id: "a3",
+//         time: "03:00 PM",
+//         type: "visit",
+//         title: "Check-in at Hotel",
+//         description: "Relax and freshen up.",
+//         location: { name: "Gracery Hotel" }
+//       }
+//     ]
+//   },
+//   {
+//     day: 3,
+//     title: "Arrival & First Tastes",
+//     date: "Oct 12, 2025",
+//     activities: [
+//       {
+//         id: "a1",
+//         time: "10:00 AM",
+//         type: "travel",
+//         title: "Airport Transfer",
+//         description: "Take the Narita Express to Shinjuku Station.",
+//         location: { name: "Narita Airport" }
+//       },
+//       {
+//         id: "a2",
+//         time: "01:00 PM",
+//         type: "food",
+//         title: "Ichiran Ramen",
+//         description: "Famous solo-booth ramen experience. Order the level 4 spice.",
+//         location: { name: "Shinjuku East" }
+//       },
+//       {
+//         id: "a3",
+//         time: "03:00 PM",
+//         type: "visit",
+//         title: "Check-in at Hotel",
+//         description: "Relax and freshen up.",
+//         location: { name: "Gracery Hotel" }
+//       }
+//     ]
+//   },
+//   {
+//     day: 4,
+//     title: "Arrival & First Tastes",
+//     date: "Oct 12, 2025",
+//     activities: [
+//       {
+//         id: "a1",
+//         time: "10:00 AM",
+//         type: "travel",
+//         title: "Airport Transfer",
+//         description: "Take the Narita Express to Shinjuku Station.",
+//         location: { name: "Narita Airport" }
+//       },
+//       {
+//         id: "a2",
+//         time: "01:00 PM",
+//         type: "food",
+//         title: "Ichiran Ramen",
+//         description: "Famous solo-booth ramen experience. Order the level 4 spice.",
+//         location: { name: "Shinjuku East" }
+//       },
+//       {
+//         id: "a3",
+//         time: "03:00 PM",
+//         type: "visit",
+//         title: "Check-in at Hotel",
+//         description: "Relax and freshen up.",
+//         location: { name: "Gracery Hotel" }
+//       }
+//     ]
+//   }
+// ]
+
   return (
-    <div className="container mx-auto px-4 py-8 animate-in fade-in duration-500">
+    <div className="container mx-auto px-2 py-8 animate-in fade-in duration-500">
       {/* 1. HEADER SECTION */}
       <div className="flex flex-col md:flex-row justify-between items-start mb-6 gap-4">
         <div>
@@ -172,7 +301,6 @@ export default function TripDetails({
         </div>
       </div>
 
-      {/* 2. IMAGE GRID */}
       <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-2 h-[300px] md:h-[450px] rounded-xl overflow-hidden mb-10 shadow-sm border border-slate-100">
         <div className="md:col-span-2 md:row-span-2 relative group cursor-pointer">
           <img
@@ -183,7 +311,6 @@ export default function TripDetails({
           <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
         </div>
 
-        {/* Secondary Images (Handle if fewer than 3 images exist) */}
         <div className="md:col-span-1 md:row-span-1 hidden md:block relative group cursor-pointer">
           <img
             src={trip.photos[1] || trip.photos[0]}
@@ -199,7 +326,6 @@ export default function TripDetails({
           />
         </div>
 
-        {/* "View All" Block */}
         <div className="md:col-span-2 md:row-span-1 relative cursor-pointer group">
           <img
             src={trip.photos[3] || trip.photos[0]}
@@ -212,12 +338,12 @@ export default function TripDetails({
             </Button>
           </div>
         </div>
-      </div>
+      </div> 
 
       {/* 3. MAIN CONTENT GRID */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div>
         {/* LEFT COLUMN (Details) */}
-        <div className="lg:col-span-2 space-y-10">
+        <div className=" space-y-10">
           {/* Host Info */}
           <div className="flex items-center justify-between border-b border-slate-100 pb-8">
             <Link
@@ -336,7 +462,7 @@ export default function TripDetails({
           </div>
 
           {/* Itinerary */}
-          <div>
+          {/* <div>
             <h3 className="text-xl font-bold text-slate-900 mb-6">Itinerary</h3>
             {itineraryList.length > 0 ? (
               <div className="space-y-8 pl-4 border-l-2 border-slate-200 ml-3">
@@ -362,11 +488,12 @@ export default function TripDetails({
                 Itinerary details pending.
               </p>
             )}
-          </div>
+          </div> */}
+                      <DetailedItinerary days={itineraryList}/>
         </div>
 
         {/* RIGHT COLUMN (Sticky Booking Card) */}
-        <div className="lg:col-span-1">
+        <div className="mt-5">
           {trip.user.id !== loginUserId && (
             <BookingCard
               trip={{

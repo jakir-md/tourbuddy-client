@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "5mb",
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: "res.cloudinary.com",
+      }
+    ]
+  }
 };
 
 export default nextConfig;

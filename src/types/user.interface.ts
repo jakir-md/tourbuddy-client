@@ -17,7 +17,7 @@ export interface IUserInfo {
   updatedAt: Date;
 }
 
-export type UserRole = "USER" | "ADMIN";
+export type UserRole = "USER" | "ADMIN" | "MODERATOR";
 
 export enum TripType {
   SOLO,

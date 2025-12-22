@@ -7,7 +7,7 @@ import { IUserInfo } from "@/types/user.interface";
 const page = async ({ params }: { params: any }) => {
   const param = await params;
   const result = await getTripById(param.tripId);
-  const joinRequest = await getJoinRequestStatus(param.tripId);
+  const joinRequest = await getJoinRequestStatus(result.data.id);
   const loginUserInfo = (await getUserInfo()) as IUserInfo;
   const status = joinRequest.success ? joinRequest?.data?.status : null;
   return (

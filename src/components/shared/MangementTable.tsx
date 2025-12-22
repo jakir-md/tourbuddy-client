@@ -7,12 +7,12 @@ import {
   Eye,
   Loader2,
   MoreHorizontal,
-  Table,
   Trash,
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useTransition } from "react";
 import {
+  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -40,21 +40,26 @@ interface MangementTableProps<T> {
   onView?: (row: T) => void;
   onDelete?: (row: T) => void;
   onEdit?: (row: T) => void;
+  onAccept?: (row: T) => void;
+  onReject?: (row: T) => void;
   getRowKey: (row: T) => string;
   emptyMessage?: string;
   isRefreshing?: boolean;
 }
-export async function ManagementTable<T>({
+
+export function ManagementTable<T>({
   data = [],
   columns = [],
   onView,
   onEdit,
   onDelete,
+  onAccept,
+  onReject,
   getRowKey,
   emptyMessage,
   isRefreshing,
 }: MangementTableProps<T>) {
-  const hasActions = onView || onEdit || onDelete;
+  const hasActions = onView || onEdit || onDelete || onAccept || onReject;
   const router = useRouter();
   const [, startTransition] = useTransition();
   const searchParams = useSearchParams();
@@ -179,6 +184,22 @@ export async function ManagementTable<T>({
                             >
                               <Trash className="mr-2 h-4 w-4" />
                               Delete
+                            </DropdownMenuItem>
+                          )}
+                          {onAccept && (
+                            <DropdownMenuItem
+                              onClick={() => onAccept(item)}
+                              className=""
+                            >
+                              Accept
+                            </DropdownMenuItem>
+                          )}
+                          {onReject && (
+                            <DropdownMenuItem
+                              onClick={() => onReject(item)}
+                              className="text-destructive"
+                            >
+                              Reject
                             </DropdownMenuItem>
                           )}
                         </DropdownMenuContent>
