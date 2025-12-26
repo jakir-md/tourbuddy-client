@@ -88,8 +88,19 @@ export const moderatorNavItems = (): NavSection[] => {
         },
       ],
     },
+    {
+      title: "User Management",
+      items: [
+        {
+          title: "Review Profiles",
+          icon: "Profile",
+          url: "/moderator/dashboard/approve-profiles",
+        },
+      ],
+    },
   ];
 };
+
 export const adminNavItems = (): NavSection[] => {
   const defaultDashboard = getDefaultDashboardRoute("ADMIN");
   return [
@@ -119,7 +130,7 @@ export const adminNavItems = (): NavSection[] => {
         { title: "All Users", url: "/admin/dashboard/users", icon: "Users" },
         {
           title: "ID Verification",
-          url: "/admin/dashboard/users/verify",
+          url: "/admin/dashboard/verification",
           icon: "Shield",
           badge: 5,
         },

@@ -1,18 +1,14 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
 import {
   Search,
-  MapPin,
-  Calendar,
   Users,
-  ArrowRight,
   Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import SearchOption from "./SearchSection";
+import SearchSection from "./SearchSection";
 
 export default function HeroSection() {
   return (
@@ -52,76 +48,7 @@ export default function HeroSection() {
         </div>
 
         {/* 3. The Search Widget (Glassmorphism) */}
-        <div className="w-full max-w-5xl bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl shadow-2xl">
-          <div className="bg-white rounded-xl p-4 md:p-2 grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-            {/* Input: Destination */}
-            <div className="md:col-span-4 relative group">
-              <div className="flex items-center px-4 py-2 bg-slate-50 rounded-lg border border-transparent group-focus-within:border-primary group-focus-within:bg-white transition-all">
-                <MapPin className="w-5 h-5 text-slate-400 mr-3" />
-                <div className="flex flex-col w-full">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">
-                    Where
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Search destinations"
-                    className="w-full bg-transparent border-none text-sm font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none p-0"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Separator (Desktop) */}
-            <div className="hidden md:block w-px h-10 bg-slate-200 mx-auto" />
-
-            {/* Input: Date */}
-            <div className="md:col-span-3 relative group">
-              <div className="flex items-center px-4 py-2 bg-slate-50 rounded-lg border border-transparent group-focus-within:border-primary group-focus-within:bg-white transition-all">
-                <Calendar className="w-5 h-5 text-slate-400 mr-3" />
-                <div className="flex flex-col w-full">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">
-                    When
-                  </label>
-                  <input
-                    type="date"
-                    className="w-full bg-transparent border-none text-sm font-semibold text-slate-900 focus:outline-none p-0"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Separator (Desktop) */}
-            <div className="hidden md:block w-px h-10 bg-slate-200 mx-auto" />
-
-            {/* Input: Type */}
-            <div className="md:col-span-3 relative group">
-              <div className="flex items-center px-4 py-2 bg-slate-50 rounded-lg border border-transparent group-focus-within:border-primary group-focus-within:bg-white transition-all">
-                <Users className="w-5 h-5 text-slate-400 mr-3" />
-                <div className="flex flex-col w-full">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">
-                    Travelers
-                  </label>
-                  <select className="w-full bg-transparent border-none text-sm font-semibold text-slate-900 focus:outline-none p-0 appearance-none">
-                    <option>Solo Traveler</option>
-                    <option>Couple</option>
-                    <option>Group of Friends</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            {/* Search Button */}
-            <div className="md:col-span-2">
-              <Button
-                size="lg"
-                className="w-full h-14 md:h-12 bg-primary hover:bg-primary/90 text-lg shadow-lg shadow-primary/30"
-              >
-                <Search className="w-5 h-5 mr-2" />
-                Search
-              </Button>
-            </div>
-          </div>
-        </div>
+        <SearchSection/>
 
         {/* 4. Social Proof / Trust Signals */}
         <div className="flex flex-col md:flex-row items-center gap-6 text-white/80 mt-4">

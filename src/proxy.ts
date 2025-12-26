@@ -61,6 +61,7 @@ export async function proxy(request: NextRequest) {
     );
   }
 
+  console.log("pathname", pathname);
   if (routeOwner === null) {
     return NextResponse.next();
   }
