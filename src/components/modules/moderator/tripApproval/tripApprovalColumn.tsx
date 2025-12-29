@@ -10,7 +10,7 @@ export const tripApprovalColumn: Column<ITripApprovalInfo>[] = [
         name={approvingTrip.user.name}
         photo={approvingTrip.user.profilePhoto}
         email={approvingTrip.user.email}
-        slug={approvingTrip.user.username}
+        slug={approvingTrip.user.id}
       />
     ),
   },

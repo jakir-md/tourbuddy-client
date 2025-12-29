@@ -69,7 +69,7 @@ export default function DashBoardSidebarContent({
             {state === "expanded" && user.role === "USER" && (
               <div className="mb-4 px-2">
                 <Link
-                  href="/dashboard/allTrips"
+                  href="/dashboard/create-trip"
                   className="flex items-center justify-center w-full gap-2 bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-md text-sm font-medium transition-colors shadow-sm"
                 >
                   <Plus className="w-4 h-4" /> Plan Trip

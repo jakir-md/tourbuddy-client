@@ -52,8 +52,7 @@ export function TripCard({
 
   return (
     <Link href={`/trips/${slug}`} className="group block h-full">
-      <Card className="h-full overflow-hidden border-slate-200 transition-all duration-300 hover:shadow-lg hover:border-primary/20 flex flex-col pt-0">
-        {/* Image Section */}
+      <Card className="h-full rounded-md overflow-hidden border-slate-200 transition-all duration-300 hover:shadow-lg hover:border-primary/20 flex flex-col pt-0">
         <div className="relative h-56 w-full overflow-hidden bg-slate-100">
           <img
             src={bannerImage}
@@ -71,8 +70,7 @@ export function TripCard({
           </Badge>
         </div>
 
-        {/* Content Section */}
-        <CardContent className="flex-1 p-5 space-y-3">
+        <CardContent className="flex-1">
           <div className="flex justify-between items-start">
             <div>
               <h3 className="font-bold text-lg text-slate-900 group-hover:text-primary transition-colors line-clamp-1">
@@ -91,9 +89,8 @@ export function TripCard({
           </div>
         </CardContent>
 
-        {/* Footer: Host & Action */}
-        <CardFooter className="p-5 pt-0 flex items-center justify-between border-t border-slate-50 mt-auto">
-          <div className="flex items-center gap-2 mt-4">
+        <CardFooter className="flex pt-0 items-center [.border-t]:pt-0 justify-between border-t border-slate-50">
+          <div className="flex items-center gap-2">
             <Avatar className="w-8 h-8 border border-slate-200">
               <AvatarImage src={user.profilePhoto || ""} />
               <AvatarFallback className="text-xs">
@@ -104,7 +101,7 @@ export function TripCard({
               <span className="text-xs font-medium text-slate-700">
                 Hosted by
               </span>
-              <span className="text-xs text-slate-500 max-w-[80px] truncate">
+              <span className="text-xs text-slate-500 truncate">
                 {user.name}
               </span>
             </div>

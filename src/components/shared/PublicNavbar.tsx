@@ -67,7 +67,7 @@ export default function PublicNavbar({ user }: NavbarProps) {
   `;
 
   const handleLogout = async () => {
-    console.log("logged out clicked")
+    console.log("logged out clicked");
     await logOut();
   };
   // 3. Navigation Links Config
@@ -115,12 +115,14 @@ export default function PublicNavbar({ user }: NavbarProps) {
           {user && user.email ? (
             <div className="hidden md:flex items-center gap-4">
               <div className="flex items-center gap-4">
-                <Button
-                  size="sm"
-                  className="hidden lg:flex bg-emerald-600 hover:bg-emerald-700"
-                >
-                  <Plus className="w-4 h-4 mr-1" /> Create Trip
-                </Button>
+                <Link href={"/dashboard/create-trip"}>
+                  <Button
+                    size="sm"
+                    className="hidden lg:flex bg-emerald-600 hover:bg-emerald-700"
+                  >
+                    <Plus className="w-4 h-4 mr-1" /> Create Trip
+                  </Button>
+                </Link>
 
                 <Link
                   href="/messages"
@@ -204,12 +206,12 @@ export default function PublicNavbar({ user }: NavbarProps) {
                     </Link>
                   </DropdownMenuItem>
 
-                  <DropdownMenuItem asChild>
+                  {/* <DropdownMenuItem asChild>
                     <Link href="/trips/my-trips" className="cursor-pointer">
                       <Map className="mr-2 h-4 w-4" />
                       My Trips
                     </Link>
-                  </DropdownMenuItem>
+                  </DropdownMenuItem> */}
 
                   {user.subscriptionStatus === "FREE" && (
                     <DropdownMenuItem
@@ -228,7 +230,10 @@ export default function PublicNavbar({ user }: NavbarProps) {
 
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuItem onClick={handleLogout} className="text-red-600 focus:text-red-600 focus:bg-red-50 cursor-pointer">
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="text-red-600 focus:text-red-600 focus:bg-red-50 cursor-pointer"
+                  >
                     <LogOut className="mr-2 h-4 w-4" />
                     Log out
                   </DropdownMenuItem>

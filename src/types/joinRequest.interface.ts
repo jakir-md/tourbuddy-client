@@ -4,6 +4,7 @@ export interface IJoinRequest {
     username: string;
     profilePhoto: string;
     email: string;
+    id: string;
   };
   trip: {
     title: string;

@@ -35,14 +35,13 @@ export const userNavitems = (): NavSection[] => {
     {
       title: "My Travel",
       items: [
-        { title: "My Trips", url: "/dashboard/trips", icon: "Map" },
+        { title: "Joined Trips", url: "/dashboard/trips", icon: "Map" },
         {
           title: "Join Requests",
           url: "/dashboard/join-requests",
           icon: "UserPlus",
           badge: 2,
         },
-        { title: "Saved Trips", url: "/dashboard/saved", icon: "Heart" },
         { title: "History", url: "/dashboard/history", icon: "History" },
       ],
     },
@@ -93,7 +92,7 @@ export const moderatorNavItems = (): NavSection[] => {
       items: [
         {
           title: "Review Profiles",
-          icon: "Profile",
+          icon: "ShieldCheck",
           url: "/moderator/dashboard/approve-profiles",
         },
       ],
@@ -130,7 +129,7 @@ export const adminNavItems = (): NavSection[] => {
         { title: "All Users", url: "/admin/dashboard/users", icon: "Users" },
         {
           title: "ID Verification",
-          url: "/admin/dashboard/verification",
+          url: "/admin/dashboard/approve-profiles",
           icon: "Shield",
           badge: 5,
         },
@@ -139,14 +138,17 @@ export const adminNavItems = (): NavSection[] => {
     {
       title: "Content & Safety",
       items: [
-        { title: "Manage Trips", url: "/admin/trips", icon: "Map" },
+        {
+          title: "Review Trip",
+          icon: "Map",
+          url: "/admin/dashboard/approve-trips",
+        },
         {
           title: "Reports & Flags",
           url: "/admin/dashboard/reports",
           icon: "Flag",
           badge: 2,
         },
-        { title: "Reviews", url: "/admin/dashboard/reviews", icon: "FileText" },
       ],
     },
     {

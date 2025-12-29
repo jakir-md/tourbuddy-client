@@ -10,7 +10,7 @@ export const joinRequestColumn: Column<IJoinRequest>[] = [
         name={joinRequest.attendee.name}
         photo={joinRequest.attendee.profilePhoto}
         email={joinRequest.attendee.email}
-        slug={joinRequest.attendee.username}
+        slug={joinRequest.attendee.id}
       />
     ),
   },

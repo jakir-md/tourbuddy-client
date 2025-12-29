@@ -32,6 +32,7 @@ export const verifyUserProfile = async (data: any) => {
 };
 
 export const getVerifyStatus = async () => {
+  console.log("verification status");
   try {
     const response = await serverFetch.get("/user/verification-status", {
       next: {

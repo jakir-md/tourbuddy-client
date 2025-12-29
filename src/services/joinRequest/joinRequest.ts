@@ -118,3 +118,23 @@ export const getAllRequests = async () => {
     };
   }
 };
+
+export const getJoinedProfiles = async (slug: string) => {
+  console.log("slug from profiles", slug);
+  try {
+    const response = await serverFetch.get(
+      `/join-request/joined-profiles/${slug}`
+    );
+    const result = await response.json();
+    return result;
+  } catch (error: any) {
+    console.log("Error occured while fetching all joined profiles", error);
+    return {
+      data: [],
+      error:
+        process.env.NODE_ENV === "development"
+          ? error.message
+          : "Something went wrong while fetching joined profiles",
+    };
+  }
+};

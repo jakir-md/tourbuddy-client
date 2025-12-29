@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 import {
   Calendar,
@@ -28,6 +28,8 @@ import {
 import BookingCard from "./JoinRequestCard";
 import { requestForJoining } from "@/services/joinRequest/joinRequest";
 import DetailedItinerary from "./DetailItenerary";
+import TripActionGatekeeper from "@/components/shared/TripActionGateKeeper";
+import { getUserInfo } from "@/services/auth/getUserInfo";
 
 // 1. Type Definitions based on your provided Data
 interface User {
@@ -57,21 +59,42 @@ interface TripData {
   destination: string;
   title?: string; // Optional if not in DB, can derive or use placeholder
   description?: string; // Add this to your schema if missing
-  user: User; // Host
-  joinedUsers?: User[]; // NEW: Array of users who joined
+  user: User; // Host // NEW: Array of users who joined
+}
+
+interface IJoinedUsers {
+  attendee: {
+    id: string;
+    name: string;
+    profilePhoto: string;
+    isVerified: boolean;
+  };
 }
 
 export default function TripDetails({
   trip,
   requestStatus,
   loginUserId,
+  joinedUsers = [],
 }: {
   trip: TripData;
   loginUserId: string;
   requestStatus: RequestStatus;
+  joinedUsers: IJoinedUsers[];
 }) {
+  const [user, setUser] = useState(null);
   const [isImageModalOpen, setImageModalOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+
+  useEffect(() => {
+    const loadData = async () => {
+      const result = await getUserInfo();
+      console.log("user info from trip", result);
+      setUser(result);
+    };
+    loadData();
+  }, []);
+
   const handleRequest = async () => {
     setIsProcessing(false);
     await requestForJoining(trip.id, trip.user.id);
@@ -101,156 +124,14 @@ export default function TripDetails({
     console.error("Failed to parse itinerary", e);
   }
 
-  // Mock "Joined Users" if not provided in props (for demo UI)
-  const joinedTravelers = trip.joinedUsers || [
-    {
-      id: "u1",
-      name: "Sarah J.",
-      profilePhoto: "https://i.pravatar.cc/150?u=1",
-      isVerified: true,
-    },
-    {
-      id: "u2",
-      name: "Mike T.",
-      profilePhoto: "https://i.pravatar.cc/150?u=2",
-      isVerified: false,
-    },
-    {
-      id: "u3",
-      name: "Emma W.",
-      profilePhoto: "https://i.pravatar.cc/150?u=3",
-      isVerified: true,
-    },
-  ];
+  const isLoggedIn = !!user;
+  let isVerified;
 
-//   const demoItinerary = [
-//   {
-//     day: 1,
-//     title: "Arrival & First Tastes",
-//     date: "Oct 12, 2025",
-//     activities: [
-//       {
-//         id: "a1",
-//         time: "10:00 AM",
-//         type: "travel",
-//         title: "Airport Transfer",
-//         description: "Take the Narita Express to Shinjuku Station.",
-//         location: { name: "Narita Airport" },
-//         image: 'https://res.cloudinary.com/dymemmfp6/image/upload/v1765110909/hrngwwa3r4r-1765110904955-screenshot%2C2025%2C12%2C01%2C092651.png'
-//       },
-//       {
-//         id: "a2",
-//         time: "01:00 PM",
-//         type: "food",
-//         title: "Ichiran Ramen",
-//         description: "Famous solo-booth ramen experience. Order the level 4 spice.",
-//         location: { name: "Shinjuku East" }
-//       },
-//       {
-//         id: "a3",
-//         time: "03:00 PM",
-//         type: "visit",
-//         title: "Check-in at Hotel",
-//         description: "Relax and freshen up.",
-//         location: { name: "Gracery Hotel" }
-//       }
-//     ]
-//   },
-//   {
-//     day: 2,
-//     title: "Arrival & First Tastes",
-//     date: "Oct 12, 2025",
-//     activities: [
-//       {
-//         id: "a1",
-//         time: "10:00 AM",
-//         type: "travel",
-//         title: "Airport Transfer",
-//         description: "Take the Narita Express to Shinjuku Station.",
-//         location: { name: "Narita Airport" }
-//       },
-//       {
-//         id: "a2",
-//         time: "01:00 PM",
-//         type: "food",
-//         title: "Ichiran Ramen",
-//         description: "Famous solo-booth ramen experience. Order the level 4 spice.",
-//         location: { name: "Shinjuku East" }
-//       },
-//       {
-//         id: "a3",
-//         time: "03:00 PM",
-//         type: "visit",
-//         title: "Check-in at Hotel",
-//         description: "Relax and freshen up.",
-//         location: { name: "Gracery Hotel" }
-//       }
-//     ]
-//   },
-//   {
-//     day: 3,
-//     title: "Arrival & First Tastes",
-//     date: "Oct 12, 2025",
-//     activities: [
-//       {
-//         id: "a1",
-//         time: "10:00 AM",
-//         type: "travel",
-//         title: "Airport Transfer",
-//         description: "Take the Narita Express to Shinjuku Station.",
-//         location: { name: "Narita Airport" }
-//       },
-//       {
-//         id: "a2",
-//         time: "01:00 PM",
-//         type: "food",
-//         title: "Ichiran Ramen",
-//         description: "Famous solo-booth ramen experience. Order the level 4 spice.",
-//         location: { name: "Shinjuku East" }
-//       },
-//       {
-//         id: "a3",
-//         time: "03:00 PM",
-//         type: "visit",
-//         title: "Check-in at Hotel",
-//         description: "Relax and freshen up.",
-//         location: { name: "Gracery Hotel" }
-//       }
-//     ]
-//   },
-//   {
-//     day: 4,
-//     title: "Arrival & First Tastes",
-//     date: "Oct 12, 2025",
-//     activities: [
-//       {
-//         id: "a1",
-//         time: "10:00 AM",
-//         type: "travel",
-//         title: "Airport Transfer",
-//         description: "Take the Narita Express to Shinjuku Station.",
-//         location: { name: "Narita Airport" }
-//       },
-//       {
-//         id: "a2",
-//         time: "01:00 PM",
-//         type: "food",
-//         title: "Ichiran Ramen",
-//         description: "Famous solo-booth ramen experience. Order the level 4 spice.",
-//         location: { name: "Shinjuku East" }
-//       },
-//       {
-//         id: "a3",
-//         time: "03:00 PM",
-//         type: "visit",
-//         title: "Check-in at Hotel",
-//         description: "Relax and freshen up.",
-//         location: { name: "Gracery Hotel" }
-//       }
-//     ]
-//   }
-// ]
+  if (isLoggedIn) {
+    isVerified = user?.isVerified;
+  }
 
+  console.log({ isLoggedIn, isVerified });
   return (
     <div className="container mx-auto px-2 py-8 animate-in fade-in duration-500">
       {/* 1. HEADER SECTION */}
@@ -338,7 +219,7 @@ export default function TripDetails({
             </Button>
           </div>
         </div>
-      </div> 
+      </div>
 
       {/* 3. MAIN CONTENT GRID */}
       <div>
@@ -375,9 +256,11 @@ export default function TripDetails({
                 </p>
               </div>
             </Link>
-            <Button variant="outline" className="hidden sm:flex">
-              View Profile
-            </Button>
+            <Link href={`/profile/${trip.user.id}`}>
+              <Button variant="outline" className="hidden sm:flex hover:cursor-pointer">
+                View Profile
+              </Button>
+            </Link>
           </div>
 
           {/* Key Stats Cards */}
@@ -401,38 +284,40 @@ export default function TripDetails({
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-bold text-slate-900">
-                Travel Buddies
+                Already Joined
               </h3>
               <span className="text-sm text-slate-500">
-                {joinedTravelers.length} joined
+                {joinedUsers.length} joined
               </span>
             </div>
 
             <div className="flex flex-wrap gap-6">
-              {joinedTravelers.map((buddy) => (
-                <TooltipProvider key={buddy.id}>
+              {joinedUsers.map((buddy) => (
+                <TooltipProvider key={buddy.attendee.id}>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Link
-                        href={`/profile/${buddy.id}`}
+                        href={`/profile/${buddy.attendee.id}`}
                         className="flex flex-col items-center gap-2 group"
                       >
                         <div className="relative">
                           <Avatar className="h-14 w-14 border-2 border-transparent group-hover:border-emerald-400 transition-all cursor-pointer">
-                            <AvatarImage src={buddy.profilePhoto} />
-                            <AvatarFallback>{buddy.name[0]}</AvatarFallback>
+                            <AvatarImage src={buddy.attendee.profilePhoto} />
+                            <AvatarFallback>
+                              {buddy.attendee.name[0]}
+                            </AvatarFallback>
                           </Avatar>
-                          {buddy.isVerified && (
+                          {buddy.attendee.isVerified && (
                             <CheckCircle2 className="w-4 h-4 text-blue-500 absolute -bottom-1 -right-1 bg-white rounded-full" />
                           )}
                         </div>
                         <span className="text-xs font-medium text-slate-600 group-hover:text-emerald-700 max-w-[60px] truncate text-center">
-                          {buddy.name.split(" ")[0]}
+                          {buddy.attendee.name.split(" ")[0]}
                         </span>
                       </Link>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>View {buddy.name}'s Profile</p>
+                      <p>View {buddy.attendee.name}'s Profile</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -449,8 +334,6 @@ export default function TripDetails({
           </div>
 
           <Separator />
-
-          {/* Description */}
           <div>
             <h3 className="text-xl font-bold text-slate-900 mb-4">
               About the trip
@@ -461,50 +344,29 @@ export default function TripDetails({
             </p>
           </div>
 
-          {/* Itinerary */}
-          {/* <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-6">Itinerary</h3>
-            {itineraryList.length > 0 ? (
-              <div className="space-y-8 pl-4 border-l-2 border-slate-200 ml-3">
-                {itineraryList.map((item) => (
-                  <div key={item.day} className="relative group">
-                    <div className="absolute -left-[23px] top-0 bg-white border-2 border-slate-300 group-hover:border-emerald-500 w-5 h-5 rounded-full transition-colors" />
-                    <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-2">
-                      <h4 className="font-bold text-lg text-slate-900">
-                        Day {item.day}
-                      </h4>
-                      <span className="font-medium text-emerald-700">
-                        {item.title}
-                      </span>
-                    </div>
-                    <p className="text-slate-500 leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-slate-500 italic">
-                Itinerary details pending.
-              </p>
-            )}
-          </div> */}
-                      <DetailedItinerary days={itineraryList}/>
+          <DetailedItinerary days={itineraryList} />
         </div>
-
-        {/* RIGHT COLUMN (Sticky Booking Card) */}
         <div className="mt-5">
-          {trip.user.id !== loginUserId && (
-            <BookingCard
-              trip={{
-                budget: trip.budget,
-                endDate: trip.endDate,
-                startDate: trip.startDate,
-              }}
-              onRequestJoin={handleRequest}
-              requestStatus={requestStatus}
-              isProcessing={isProcessing}
+          {!isLoggedIn || !isVerified ? (
+            <TripActionGatekeeper
+              isLoggedIn={isLoggedIn}
+              isVerified={isVerified}
             />
+          ) : (
+            <div>
+              {trip.user.id !== loginUserId && (
+                <BookingCard
+                  trip={{
+                    budget: trip.budget,
+                    endDate: trip.endDate,
+                    startDate: trip.startDate,
+                  }}
+                  onRequestJoin={handleRequest}
+                  requestStatus={requestStatus}
+                  isProcessing={isProcessing}
+                />
+              )}
+            </div>
           )}
         </div>
       </div>

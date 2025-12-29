@@ -8,6 +8,7 @@ import { updateApprovalStatus } from "@/services/moderator/tripApproval";
 import { useState, useTransition } from "react";
 import DeleteConfirmationDialog from "@/components/shared/DeleteConfirmationDialog";
 import { useRouter } from "next/navigation";
+import AcceptConfirmationDialog from "@/components/shared/AcceptConfirmation";
 
 export function TripApprovalTable({
   tripInfo,
@@ -53,6 +54,24 @@ export function TripApprovalTable({
     }
   };
 
+  const handleConfirmAccept = async () => {
+    try {
+      const result = await updateApprovalStatus({
+        approvalId: acceptItem?.id,
+        status: "APPROVED",
+      });
+
+      if (result.success) {
+        toast.success("Trip Approved");
+        setAcceptItem(null);
+        handleRefresh();
+      }
+    } catch (error) {
+      console.log(error, "while accepting trip");
+      toast.error("Trip Approval failed");
+    }
+  };
+
   return (
     <>
       <ManagementTable
@@ -68,6 +87,13 @@ export function TripApprovalTable({
         onOpenChange={(open) => !open && setRejectItem(null)}
         open={!!rejectItem}
         itemName={rejectItem?.trip.title}
+      />
+
+      <AcceptConfirmationDialog
+        onConfirm={handleConfirmAccept}
+        onOpenChange={(open) => !open && setAcceptItem(null)}
+        open={!!acceptItem}
+        itemName={acceptItem?.user?.name}
       />
     </>
   );

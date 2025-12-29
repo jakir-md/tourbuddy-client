@@ -25,7 +25,8 @@ export default function AddPlanModal({
   const [state, formAction, isPending] = useActionState(addNewPlan, null);
   console.log("state", state);
   useEffect(() => {
-    if (state && !state.error && state?.message === "success") {
+    if (state && !state.error && state?.success === true) {
+      console.log("plan addition modal open")
       setOpen(false);
       formRef.current?.reset();
     }

@@ -101,15 +101,14 @@ export default async function ProfilePage({
     getProfileTrips(userid),
   ]);
 
+  console.log("current user from profile page", userInfo);
   console.log("user profile from profile page", user);
   console.log("user review from profile page", reviews);
   console.log("user reviewable trips from profile page", reviewableTrips);
-  console.log("user all trips from profile page", profileTrips);
+  // console.log("user all trips from profile page", profileTrips);
 
   if (!user) return notFound();
-  const sharedTrips = [
-    { id: "10101", destination: "rangpur", startDate: new Date("2025-05-10") },
-  ];
+
   return (
     <div className="min-h-screen bg-slate-50/50 py-10">
       <div className="container mx-auto px-4 space-y-8">
@@ -124,10 +123,10 @@ export default async function ProfilePage({
           <div className="space-y-8">
             <h2 className="text-2xl font-bold text-slate-900">Reviews</h2>
             <ReviewsSection
-              currentUser={{ id: userid, name: "Jakir" }}
-              targetUserId="id"
-              sharedTrips={sharedTrips}
-              reviews={reviews}
+              currentUser={{ id: userInfo.id, name: userInfo.name }}
+              targetUserId={userid}
+              sharedTrips={reviewableTrips.data}
+              reviews={reviews.data}
             />
           </div>
         </div>

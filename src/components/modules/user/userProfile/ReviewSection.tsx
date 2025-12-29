@@ -26,6 +26,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { postUserReview } from "@/services/user/userprofile";
 
 // 1. Type Definitions
 interface Review {
@@ -38,12 +39,17 @@ interface Review {
     name: string;
     profilePhoto?: string | null;
   };
+  trip: {
+    title: string;
+  };
 }
 
 interface SharedTrip {
-  id: string;
-  destination: string;
-  startDate: Date;
+  trip: {
+    id: string;
+    title: string;
+    startDate: Date;
+  };
 }
 
 interface ReviewsSectionProps {
@@ -75,7 +81,7 @@ export default function ReviewsSection({
 
       {/* 1. INLINE REVIEW FORM (Conditionally Rendered) */}
       {canReview && (
-        <WriteReviewCard sharedTrips={sharedTrips} targetUserName="this user" />
+        <WriteReviewCard sharedTrips={sharedTrips} targetId={targetUserId} />
       )}
 
       {/* 2. REVIEWS LIST */}
@@ -99,10 +105,10 @@ export default function ReviewsSection({
 // ---------------------------------------------------------
 function WriteReviewCard({
   sharedTrips,
-  targetUserName,
+  targetId,
 }: {
   sharedTrips: SharedTrip[];
-  targetUserName: string;
+  targetId: string;
 }) {
   const [selectedTrip, setSelectedTrip] = useState<string>("");
   const [rating, setRating] = useState(0);
@@ -121,12 +127,16 @@ function WriteReviewCard({
       tripId: selectedTrip,
       rating,
       comment,
+      targetId,
     });
-    await new Promise((resolve) => setTimeout(resolve, 1000));
 
+    const reviewData = { tripId: selectedTrip, rating, comment, targetId };
+    const result = await postUserReview(reviewData);
+
+    if (result.success) {
+      setIsSuccess(true);
+    }
     setIsSubmitting(false);
-    setIsSuccess(true);
-    // Optional: Reset form after success or keep it to show "Thanks"
   };
 
   const formatDate = (d: Date) =>
@@ -159,7 +169,7 @@ function WriteReviewCard({
         <AlertDescription>
           To ensure authenticity, you can only review travelers you have
           completed a trip with. We couldn't find any shared trips between you
-          and {targetUserName}.
+          and this user.
         </AlertDescription>
       </Alert>
     );
@@ -177,27 +187,26 @@ function WriteReviewCard({
 
       <CardContent className="pt-6">
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="">
             {/* 1. Trip Selector */}
             <div className="space-y-2">
               <Label className="text-xs font-semibold uppercase text-slate-500">
                 Trip Context
               </Label>
               <Select onValueChange={setSelectedTrip} required>
-                <SelectTrigger className="bg-white">
+                <SelectTrigger className="bg-white w-full">
                   <SelectValue placeholder="Select the trip you took together..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {sharedTrips.map((trip) => (
-                    <SelectItem key={trip.id} value={trip.id}>
-                      {trip.destination} ({formatDate(trip.startDate)})
+                  {sharedTrips.map((item) => (
+                    <SelectItem key={item.trip.id} value={item.trip.id}>
+                      {item.trip.title} ({formatDate(item.trip.startDate)})
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
 
-            {/* 2. Star Rating */}
             <div className="space-y-2">
               <Label className="text-xs font-semibold uppercase text-slate-500">
                 Rating
@@ -238,7 +247,6 @@ function WriteReviewCard({
             </div>
           </div>
 
-          {/* 3. Comment */}
           <div className="space-y-2">
             <Label className="text-xs font-semibold uppercase text-slate-500">
               Your Review
@@ -285,11 +293,11 @@ function ReviewCard({ review }: { review: Review }) {
               </p>
               <div className="flex items-center gap-2 text-xs text-slate-500">
                 <span>{new Date(review.createdAt).toLocaleDateString()}</span>
-                {review.tripName && (
+                {review.trip.title && (
                   <>
                     <span>•</span>
                     <span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded text-[10px] font-medium">
-                      Trip: {review.tripName}
+                      Trip: {review.trip.title}
                     </span>
                   </>
                 )}
