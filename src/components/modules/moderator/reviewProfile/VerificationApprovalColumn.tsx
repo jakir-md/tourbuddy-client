@@ -17,6 +17,13 @@ export interface VerificationApproveInfo {
   nidFront: string;
   nidBack: string;
   utilityBill: string;
+  moderator?: {
+    id: string;
+    name: string;
+    profilePhoto: string;
+    username: string;
+    email: string;
+  };
 }
 
 export const VerificationApprovalColumn: Column<VerificationApproveInfo>[] = [
@@ -28,6 +35,17 @@ export const VerificationApprovalColumn: Column<VerificationApproveInfo>[] = [
         photo={verificationData.user.profilePhoto}
         email={verificationData.user.email}
         slug={verificationData.user.username}
+      />
+    ),
+  },
+  {
+    header: "Moderator",
+    accessor: (verificationData) => (
+      <UserInfoCell
+        name={verificationData?.moderator?.name}
+        photo={verificationData?.moderator?.profilePhoto}
+        email={verificationData?.moderator?.email}
+        slug={verificationData?.moderator?.username}
       />
     ),
   },

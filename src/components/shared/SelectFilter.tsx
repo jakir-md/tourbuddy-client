@@ -10,7 +10,7 @@ import {
 } from "../ui/select";
 
 interface SelectFilterProps {
-  paramName: string; // ?gender=
+  paramName: string;
   placeholder?: string;
   defaultValue?: string;
   options: { label: string; value: string }[];
@@ -26,7 +26,7 @@ const SelectFilter = ({
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
-  const currentValue = searchParams.get(paramName) || defaultValue;
+  const currentValue = searchParams.get(paramName) || undefined;
 
   const handleChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -49,11 +49,11 @@ const SelectFilter = ({
       onValueChange={handleChange}
       disabled={isPending}
     >
-      <SelectTrigger>
+      <SelectTrigger className="">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value={defaultValue}>{defaultValue}</SelectItem>
+        {/* <SelectItem value={defaultValue}>{defaultValue}</SelectItem> */}
         {options.map((option) => (
           <SelectItem key={option.value} value={option.value}>
             {option.label}

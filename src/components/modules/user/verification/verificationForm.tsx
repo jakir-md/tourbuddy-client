@@ -25,12 +25,18 @@ import { uploadImage } from "@/services/fileUpload/imageUpload";
 import { verifyUserProfile } from "@/services/auth/verifyUserProfile";
 import VerifiedProfileBadge from "./VerifiedBadge";
 import VerificationPendingCard from "./VerificationPending";
+import { useEffect, useState } from "react";
+import VerificationRejectedCard from "./VerificationRejectionCard";
+import { toast } from "sonner";
 
 export default function VerificationForm({
   isVerified,
+  message,
 }: {
   isVerified: string | null;
+  message?: string;
 }) {
+  const [startVerify, setStartVerify] = useState(isVerified ? false : true);
   const {
     control,
     handleSubmit,
@@ -59,8 +65,17 @@ export default function VerificationForm({
       utilityBill,
     };
 
-    console.log("Submitting Verification Request...", uploadPayload);
-    const result = await verifyUserProfile(uploadPayload);
+    try {
+      console.log("is verified status", isVerified);
+      const result = await verifyUserProfile(uploadPayload);
+
+      if (result.success) {
+        toast.success("Verification Submitted Successfully.");
+        setStartVerify(false);
+      }
+    } catch (error) {
+      toast.error("Verification Submission.");
+    }
   };
 
   // Mock Facebook Login Function
@@ -71,10 +86,18 @@ export default function VerificationForm({
     }, 1000);
   };
 
-  if (isVerified === "APPROVED") {
+  const handleOnRetry = () => {
+    setStartVerify(true);
+  };
+
+  if (!startVerify && isVerified === "APPROVED") {
     return <VerifiedProfileBadge />;
-  } else if (isVerified === "PENDING") {
+  } else if (!startVerify && isVerified === "PENDING") {
     return <VerificationPendingCard />;
+  } else if (!startVerify && isVerified === "REJECTED") {
+    return (
+      <VerificationRejectedCard onRetry={handleOnRetry} reason={message} />
+    );
   } else
     return (
       <div className="max-w-2xl mx-auto py-10 px-4">

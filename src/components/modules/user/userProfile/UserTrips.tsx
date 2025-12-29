@@ -1,17 +1,18 @@
-'use client'
- // Importing the card above
-import { Card, CardContent } from '@/components/ui/card'
-import TripCard from './TripCard'
+"use client";
+import { Card, CardContent } from "@/components/ui/card";
+import TripCard from "./TripCard";
 
 interface Trip {
-  id: string
-  destination: string
-  startDate: Date
-  endDate: Date
-  budget: number
-  type: string
-  photos: string[]
+  id: string;
+  destination: string;
+  startDate: Date;
+  endDate: Date;
+  budget: number;
+  category: string;
+  bannerImage: string;
+  slug: string;
 }
+
 
 export default function UserTrips({ trips }: { trips: Trip[] }) {
   if (trips.length === 0) {
@@ -21,7 +22,7 @@ export default function UserTrips({ trips }: { trips: Trip[] }) {
           This user hasn't posted any trips yet.
         </CardContent>
       </Card>
-    )
+    );
   }
 
   return (
@@ -30,5 +31,5 @@ export default function UserTrips({ trips }: { trips: Trip[] }) {
         <TripCard key={trip.id} trip={trip} />
       ))}
     </div>
-  )
+  );
 }

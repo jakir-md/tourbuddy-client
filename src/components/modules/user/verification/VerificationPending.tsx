@@ -4,7 +4,7 @@ import { Clock, FileText, UserCheck, ShieldAlert, Loader2 } from "lucide-react";
 
 export default function VerificationPendingCard() {
   return (
-    <Card className="border-amber-200 bg-amber-50/40 overflow-hidden">
+    <Card className="max-w-2xl mt-4 mx-auto py-10 px-4 border-amber-200 bg-amber-50/40 overflow-hidden">
       {/* Header */}
       <CardHeader className="pb-3 border-b border-amber-100 bg-amber-50/60">
         <div className="flex items-center justify-between">

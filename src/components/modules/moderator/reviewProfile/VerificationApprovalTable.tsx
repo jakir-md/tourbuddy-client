@@ -11,6 +11,8 @@ import {
   VerificationApproveInfo,
 } from "./VerificationApprovalColumn";
 import VerificationDetailsModal from "./VerificationViewDetails";
+import AcceptConfirmationDialog from "@/components/shared/AcceptConfirmation";
+import { updateVerifyRequests } from "@/services/auth/verifyUserProfile";
 
 export function VerificationApprovalTable({
   verificationInfo,
@@ -45,26 +47,44 @@ export function VerificationApprovalTable({
   };
 
   const handleReject = (singleTripInfo: VerificationApproveInfo) => {
-    console.log("rejected item", singleTripInfo);
     setRejectItem(singleTripInfo);
   };
 
   const handleConfirmReject = async (message?: string) => {
+    console.log("rejected item", rejectItem, message);
     try {
-      const result = await updateApprovalStatus({
-        approvalId: rejectItem?.id,
-        message,
-        status: "REJECTED",
-      });
+      const result = await updateVerifyRequests(
+        rejectItem?.id as string,
+        "REJECTED",
+        message
+      );
 
       if (result.success) {
-        toast.success("Trip Rejected");
+        toast.success("Verification Rejected");
         setRejectItem(null);
         handleRefresh();
       }
+    } catch (error: any) {
+      console.log(error, "while rejecting verfication");
+      toast.error(error?.message);
+    }
+  };
+
+  const handleConfirmAccept = async () => {
+    try {
+      const result = await updateVerifyRequests(
+        acceptItem?.id as string,
+        "APPROVED"
+      );
+
+      if (result.success) {
+        toast.success("Profile Approved");
+        setAcceptItem(null);
+        handleRefresh();
+      }
     } catch (error) {
-      console.log(error, "while rejecting trip");
-      toast.error("Trip Rejection failed");
+      console.log(error, "while accepting profile");
+      toast.error("Profile Approvement failed");
     }
   };
 
@@ -90,6 +110,13 @@ export function VerificationApprovalTable({
         data={viewItem as VerificationApproveInfo}
         onClose={(open) => !open && setViewItem(null)}
         open={!!viewItem}
+      />
+
+      <AcceptConfirmationDialog
+        onConfirm={handleConfirmAccept}
+        onOpenChange={(open) => !open && setAcceptItem(null)}
+        open={!!acceptItem}
+        itemName={acceptItem?.user?.name}
       />
     </>
   );

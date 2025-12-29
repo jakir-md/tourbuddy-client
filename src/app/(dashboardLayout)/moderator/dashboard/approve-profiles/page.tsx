@@ -8,7 +8,7 @@ export default async function VerificationApprovalPage() {
   return (
     <div className="space-y-6 px-4 pt-4">
       <VerificationApprovalHeader />
-      <VerificationApprovalTable verificationInfo={verifyRequests.data} />
+      <VerificationApprovalTable verificationInfo={verifyRequests?.data} />
     </div>
   );
 }

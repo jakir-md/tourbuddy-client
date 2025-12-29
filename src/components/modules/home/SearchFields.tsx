@@ -35,7 +35,7 @@ export function SearchFields() {
                 Where
               </label>
               <input
-                {...register("destination")}
+                {...register("searchTerm")}
                 type="text"
                 placeholder="Search destinations"
                 className="w-full bg-transparent border-none text-sm font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none p-0"

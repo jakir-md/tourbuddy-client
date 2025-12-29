@@ -24,7 +24,7 @@ interface TripCardProps {
       isVerified: string;
       profilePhoto: string;
     };
-    bannerImage:string
+    bannerImage:string;
   };
 }
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import Image from "next/image";
 
 interface TripProps {
   trip: {
@@ -13,8 +14,9 @@ interface TripProps {
     startDate: Date;
     endDate: Date;
     budget: number;
-    type: string;
-    photos: string[];
+    category: string;
+    bannerImage: string;
+    slug: string;
   };
 }
 
@@ -27,19 +29,21 @@ export default function TripCard({ trip }: TripProps) {
   )}`;
 
   return (
-    <Link href={`/trips/${trip.id}`} className="block group">
+    <Link href={`/trips/${trip.slug}`} className="block group">
       <Card className="flex flex-col sm:flex-row overflow-hidden border-slate-200 hover:border-emerald-500/50 hover:shadow-md transition-all duration-300">
         {/* 1. Image Section (Left on Desktop, Top on Mobile) */}
         <div className="w-full sm:w-48 h-48 sm:h-auto shrink-0 relative bg-slate-100">
-          <img
-            src={trip.photos[0] || "/placeholder.jpg"}
+          <Image
+            src={trip.bannerImage || "/placeholder.jpg"}
             alt={trip.destination}
+            height={250}
+            width={250}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
           {/* Mobile-only Badge overlay for space saving */}
           <div className="absolute top-3 left-3 sm:hidden">
             <Badge className="bg-white/90 text-slate-900 backdrop-blur-sm shadow-sm hover:bg-white">
-              {trip.type}
+              {trip.category}
             </Badge>
           </div>
         </div>
@@ -53,7 +57,7 @@ export default function TripCard({ trip }: TripProps) {
                   variant="secondary"
                   className="text-xs font-normal text-slate-500 bg-slate-100"
                 >
-                  {trip.type}
+                  {trip.category}
                 </Badge>
               </div>
               <h3 className="font-bold text-lg text-slate-900 group-hover:text-emerald-600 transition-colors line-clamp-1">

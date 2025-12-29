@@ -11,8 +11,7 @@ export default function SearchSection() {
   const form = useForm({
     defaultValues: {
       startDate: "",
-      startPoint: "",
-      destination: "",
+      searchTerm: "",
       category: "",
     },
   });
