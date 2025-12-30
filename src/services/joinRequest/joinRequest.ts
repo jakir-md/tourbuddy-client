@@ -138,3 +138,20 @@ export const getJoinedProfiles = async (slug: string) => {
     };
   }
 };
+
+export const joinedTrips = async () => {
+  try {
+    const response = await serverFetch.get(`/join-request/joined-trips`);
+    const result = await response.json();
+    return result;
+  } catch (error: any) {
+    console.log("Error occured while fetching all joined trips", error);
+    return {
+      data: [],
+      error:
+        process.env.NODE_ENV === "development"
+          ? error.message
+          : "Something went wrong while fetching joined trips",
+    };
+  }
+};

@@ -111,7 +111,7 @@ export default function VerificationForm({
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           {/* SECTION 1: LIVE SELFIE */}
-          <Card>
+          <Card className="rounded-md border-none shadow-none">
             <CardHeader>
               <CardTitle>Step 1: Live Selfie</CardTitle>
               <CardDescription>
@@ -130,7 +130,7 @@ export default function VerificationForm({
           </Card>
 
           {/* SECTION 2: NATIONAL ID */}
-          <Card>
+          <Card className="rounded-md border-none shadow-none">
             <CardHeader>
               <CardTitle>Step 2: National ID (NID)</CardTitle>
               <CardDescription>
@@ -176,7 +176,7 @@ export default function VerificationForm({
           </Card>
 
           {/* SECTION 3: UTILITY BILL */}
-          <Card>
+          <Card className="rounded-md border-none shadow-none">
             <CardHeader>
               <CardTitle>Step 3: Address Proof</CardTitle>
               <CardDescription>
@@ -202,7 +202,7 @@ export default function VerificationForm({
           </Card>
 
           {/* SECTION 4: SOCIAL CONNECT */}
-          <Card>
+          <Card className="rounded-md border-none shadow-none">
             <CardHeader>
               <CardTitle>Step 4: Social Trust</CardTitle>
               <CardDescription className="p-0">

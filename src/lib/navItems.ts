@@ -35,7 +35,7 @@ export const userNavitems = (): NavSection[] => {
     {
       title: "My Travel",
       items: [
-        { title: "Joined Trips", url: "/dashboard/trips", icon: "Map" },
+        { title: "Joined Trips", url: "/dashboard/joined-trips", icon: "Map" },
         {
           title: "Join Requests",
           url: "/dashboard/join-requests",

@@ -11,6 +11,7 @@ export function AllTripsTable({ tripInfo }: { tripInfo: IUserAllTrips[] }) {
         data={tripInfo}
         columns={AllTripsColumn}
         getRowKey={(tripInfo) => tripInfo.id!}
+        emptyMessage="No Records Found"
       />
     </>
   );

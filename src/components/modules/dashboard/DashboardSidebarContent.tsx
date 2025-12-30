@@ -28,6 +28,7 @@ import {
 import { IUserInfo } from "@/types/user.interface";
 import { NavSection } from "@/lib/navItems";
 import { getIconComponent } from "@/lib/icon-mapper";
+import { logOut } from "@/services/auth/logout";
 export default function DashBoardSidebarContent({
   user,
   navItems,
@@ -35,6 +36,9 @@ export default function DashBoardSidebarContent({
   user: IUserInfo;
   navItems: NavSection[];
 }) {
+  const handleLogout = async () => {
+    await logOut();
+  };
   const pathname = usePathname();
   const { state } = useSidebar();
   return (
@@ -142,7 +146,7 @@ export default function DashBoardSidebarContent({
                 align="end"
                 sideOffset={4}
               >
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   Log out
                 </DropdownMenuItem>

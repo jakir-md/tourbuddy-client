@@ -34,7 +34,7 @@ export const VerificationApprovalColumn: Column<VerificationApproveInfo>[] = [
         name={verificationData.user.name}
         photo={verificationData.user.profilePhoto}
         email={verificationData.user.email}
-        slug={verificationData.user.username}
+        slug={verificationData.user.id}
       />
     ),
   },
@@ -45,7 +45,7 @@ export const VerificationApprovalColumn: Column<VerificationApproveInfo>[] = [
         name={verificationData?.moderator?.name}
         photo={verificationData?.moderator?.profilePhoto}
         email={verificationData?.moderator?.email}
-        slug={verificationData?.moderator?.username}
+        slug={verificationData?.moderator?.id}
       />
     ),
   },

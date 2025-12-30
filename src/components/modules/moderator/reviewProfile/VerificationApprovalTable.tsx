@@ -63,6 +63,8 @@ export function VerificationApprovalTable({
         toast.success("Verification Rejected");
         setRejectItem(null);
         handleRefresh();
+      } else {
+        toast.error("Status Already Updated.");
       }
     } catch (error: any) {
       console.log(error, "while rejecting verfication");
@@ -81,6 +83,8 @@ export function VerificationApprovalTable({
         toast.success("Profile Approved");
         setAcceptItem(null);
         handleRefresh();
+      } else {
+        toast.error("Status Already Updated.");
       }
     } catch (error) {
       console.log(error, "while accepting profile");

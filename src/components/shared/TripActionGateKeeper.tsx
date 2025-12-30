@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { ShieldCheck, LogIn, Lock, ScanFace } from "lucide-react";
 
 interface GatekeeperProps {
-  isLoggedIn: boolean;
-  isVerified: boolean;
+  isLoggedIn?: boolean;
+  isVerified?: boolean;
 }
 
 export default function TripActionGatekeeper({
@@ -14,7 +14,7 @@ export default function TripActionGatekeeper({
 }: GatekeeperProps) {
   if (!isLoggedIn) {
     return (
-      <Card className="border-blue-100 bg-blue-50/50 shadow-sm">
+      <Card className="md:border-blue-100 border-0 bg-blue-50/50 shadow-sm">
         <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
           <div className="bg-white p-3 rounded-full shadow-sm">
             <LogIn className="w-6 h-6 text-blue-600 ml-1" />
@@ -43,7 +43,7 @@ export default function TripActionGatekeeper({
 
   if (!isVerified) {
     return (
-      <Card className="border-amber-200 bg-amber-50/40 shadow-sm relative overflow-hidden">
+      <Card className="border-0 md:rounded-md rounded-none md:border-amber-200 bg-amber-50/40 shadow-sm relative overflow-hidden">
         <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-amber-100 rounded-full blur-2xl opacity-50" />
 
         <CardContent className="p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">

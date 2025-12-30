@@ -5,7 +5,7 @@ import { RefreshCcw } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
-export default function AllTripsHeader() {
+export default function JoinedTripsHeader() {
   const router = useRouter();
   const [, startTransition] = useTransition();
 
@@ -17,12 +17,12 @@ export default function AllTripsHeader() {
   return (
     <>
       <ManagementPageHeader
-        title="Trips History"
-        description="Your all trips are shown here."
+        title="Trips You Joined"
+        description="Your all Joined trips are shown here."
         action={{
           onClick: handleRefresh,
           label: "Refresh",
-          icon: RefreshCcw
+          icon: RefreshCcw,
         }}
       />
     </>

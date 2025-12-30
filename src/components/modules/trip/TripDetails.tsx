@@ -131,7 +131,6 @@ export default function TripDetails({
     isVerified = user?.isVerified;
   }
 
-  console.log({ isLoggedIn, isVerified });
   return (
     <div className="container mx-auto px-2 py-8 animate-in fade-in duration-500">
       {/* 1. HEADER SECTION */}

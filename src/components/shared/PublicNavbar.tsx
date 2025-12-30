@@ -206,13 +206,6 @@ export default function PublicNavbar({ user }: NavbarProps) {
                     </Link>
                   </DropdownMenuItem>
 
-                  {/* <DropdownMenuItem asChild>
-                    <Link href="/trips/my-trips" className="cursor-pointer">
-                      <Map className="mr-2 h-4 w-4" />
-                      My Trips
-                    </Link>
-                  </DropdownMenuItem> */}
-
                   {user.subscriptionStatus === "FREE" && (
                     <DropdownMenuItem
                       asChild
@@ -261,7 +254,7 @@ export default function PublicNavbar({ user }: NavbarProps) {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
-              <div className="flex flex-col gap-6 mt-6">
+              <div className="flex flex-col gap-6 mt-6 px-4">
                 <Link
                   href="/"
                   className="flex items-center gap-2 font-bold text-xl"
@@ -283,7 +276,7 @@ export default function PublicNavbar({ user }: NavbarProps) {
 
                   <div className="h-px bg-slate-200 my-2" />
 
-                  {user ? (
+                  {user?.email ? (
                     <>
                       <Link
                         href="/dashboard"

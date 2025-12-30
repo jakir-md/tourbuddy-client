@@ -20,7 +20,7 @@ export default function VerifiedProfileBadge() {
   const verificationDate = "Dec 2025";
 
   return (
-    <Card className="max-w-2xl mt-4 mx-auto py-10 px-4 border-green-100 bg-green-50/30 overflow-hidden">
+    <Card className="max-w-2xl md:mt-4 mx-auto py-10 px-4 border-none md:rounded-md rounded-none  md:border-green-100 bg-green-50/30 overflow-hidden">
       <CardHeader className="pb-3 border-b border-green-100 bg-green-50/50">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">

@@ -17,7 +17,7 @@ export default function VerificationRejectedCard({
   onRetry,
 }: RejectedCardProps) {
   return (
-    <Card className="max-w-2xl mt-4 mx-auto py-10 px-4 border-red-200 bg-red-50/30 overflow-hidden shadow-sm">
+    <Card className="max-w-2xl md:mt-4 mx-auto py-10 px-4 border-none md:rounded-md rounded-none md:border-red-200 bg-red-50/30 overflow-hidden shadow-sm">
       {/* Header */}
       <CardHeader className="pb-3 border-b border-red-100 bg-red-50/60">
         <div className="flex items-center gap-3">

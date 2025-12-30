@@ -23,6 +23,7 @@ export function JoinRequestTable({ requests }: { requests: IJoinRequest[] }) {
       toast.success("Join Request Rejected.");
     }
   };
+  
   const handleReject = async (
     tripId: string | undefined,
     userId: string | undefined
@@ -35,6 +36,7 @@ export function JoinRequestTable({ requests }: { requests: IJoinRequest[] }) {
         onReject={handleReject}
         columns={joinRequestColumn}
         getRowKey={(joinRequest) => joinRequest.id!}
+        emptyMessage="No Records Found"
       />
     </>
   );
