@@ -1,5 +1,4 @@
 "use server";
-
 import { serverFetch } from "@/lib/server-fetch";
 import { zodValidator } from "@/lib/zodValidator";
 import { addSubscriptionPlanSchema } from "@/zod/plan.validation";

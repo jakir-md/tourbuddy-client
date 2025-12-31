@@ -30,7 +30,7 @@ export default function TripCard({ trip }: TripProps) {
 
   return (
     <Link href={`/trips/${trip.slug}`} className="block group">
-      <Card className="flex flex-col sm:flex-row overflow-hidden border-slate-200 hover:border-emerald-500/50 hover:shadow-md transition-all duration-300">
+      <Card className="flex rounded-md p-0 flex-col sm:flex-row overflow-hidden border-slate-200 hover:border-emerald-500/50 hover:shadow-md transition-all duration-300">
         {/* 1. Image Section (Left on Desktop, Top on Mobile) */}
         <div className="w-full sm:w-48 h-48 sm:h-auto shrink-0 relative bg-slate-100">
           <Image

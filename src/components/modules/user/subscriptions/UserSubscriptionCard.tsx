@@ -27,10 +27,10 @@ interface Plan {
 
 interface UserPlanCardProps {
   plan: Plan;
-  currentPlanId?: string; // ID of the plan the user currently has
+  currentPlanId?: string;
   onSubscribe?: (planId: string, amount: number) => void;
   isProcessing: boolean;
-  isPopular?: boolean; // To highlight the best plan
+  isPopular?: boolean;
 }
 
 export function UserSubscriptionCard({

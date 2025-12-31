@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { useDebounce } from "@/hooks/useDebounce";
 import { CalendarIcon, Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import {
   Popover,
   PopoverContent,
@@ -93,77 +93,79 @@ export default function ExploreSearchFilters() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search Trips..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search Trips..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          <SelectFilter
+            options={[
+              { label: "ADVENTURE", value: "ADVENTURE" },
+              { label: "FOODIE", value: "FOODIE" },
+              { label: "BEACH", value: "BEACH" },
+              { label: "CULTURAL", value: "CULTURAL" },
+              { label: "CAMPAIGN", value: "CAMPAIGN" },
+              { label: "WORK", value: "WORK" },
+              { label: "PHOTO", value: "PHOTO" },
+              { label: "ROAD_TRIP", value: "ROAD_TRIP" },
+            ]}
+            paramName="category"
+            placeholder="Select a Type"
           />
-        </div>
-        <SelectFilter
-          options={[
-            { label: "ADVENTURE", value: "ADVENTURE" },
-            { label: "FOODIE", value: "FOODIE" },
-            { label: "BEACH", value: "BEACH" },
-            { label: "CULTURAL", value: "CULTURAL" },
-            { label: "CAMPAIGN", value: "CAMPAIGN" },
-            { label: "WORK", value: "WORK" },
-            { label: "PHOTO", value: "PHOTO" },
-            { label: "ROAD_TRIP", value: "ROAD_TRIP" },
-          ]}
-          paramName="category"
-          placeholder="Select a Type"
-        />
 
-        <SelectFilter
-          placeholder="Select a StartPoint"
-          paramName="startPoint"
-          options={startPoints}
-        />
-        <div className="flex flex-col gap-2">
-          <Popover open={startOpen} onOpenChange={setStartOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                id="startDate"
-                variant={"outline"}
-                className={cn(
-                  "w-[175px] justify-start text-left font-normal",
-                  !startDate && "text-muted-foreground"
-                )}
-              >
-                <CalendarIcon className=" h-4 w-4" />
-                {startDate ? (
-                  format(startDate, "PPP")
-                ) : (
-                  <span>Pick a start date</span>
-                )}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={startDate}
-                onSelect={(date) => {
-                  setStartDate(date);
-                  setStartOpen(false);
-                }}
-              />
-            </PopoverContent>
-          </Popover>
+          <SelectFilter
+            placeholder="Select a StartPoint"
+            paramName="startPoint"
+            options={startPoints}
+          />
+          <div className="flex flex-col gap-2">
+            <Popover open={startOpen} onOpenChange={setStartOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  id="startDate"
+                  variant={"outline"}
+                  className={cn(
+                    "w-[175px] justify-start text-left font-normal",
+                    !startDate && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className=" h-4 w-4" />
+                  {startDate ? (
+                    format(startDate, "PPP")
+                  ) : (
+                    <span>Pick a start date</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={startDate}
+                  onSelect={(date) => {
+                    setStartDate(date);
+                    setStartOpen(false);
+                  }}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+          {hasActiveFilters && (
+            <Button
+              variant="outline"
+              onClick={handleClearFilters}
+              className="w-full md:w-auto"
+            >
+              Clear Filters
+            </Button>
+          )}
         </div>
-        {hasActiveFilters && (
-          <Button
-            variant="outline"
-            onClick={handleClearFilters}
-            className="w-full md:w-auto"
-          >
-            Clear Filters
-          </Button>
-        )}
-      </div>
+      </Suspense>
     </div>
   );
 }

@@ -1,17 +1,6 @@
 "use server";
-import {
-  getDefaultDashboardRoute,
-  isValidRedirectForRole,
-  UserRole,
-} from "@/lib/auth-utils";
 import { serverFetch } from "@/lib/server-fetch";
-import { zodValidator } from "@/lib/zodValidator";
-import { resetPasswordSchema } from "@/zod/auth.validation";
 import { parse } from "cookie";
-import jwt from "jsonwebtoken";
-import { revalidateTag } from "next/cache";
-import { redirect } from "next/navigation";
-import { getUserInfo } from "./getUserInfo";
 import { deleteCookie, getCookie, setCookie } from "./tokenHandlers";
 import { verifyAccessToken } from "@/lib/jwtHandler";
 

@@ -279,7 +279,7 @@ function WriteReviewCard({
 // ---------------------------------------------------------
 function ReviewCard({ review }: { review: Review }) {
   return (
-    <Card className="border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+    <Card className="px-2 py-0 border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-200">
       <CardContent className="p-5 space-y-3">
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-3">

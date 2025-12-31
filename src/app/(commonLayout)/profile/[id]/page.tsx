@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
 import ProfileDetails from "@/components/modules/user/userProfile/ProfileDetails";
 import UserTrips from "@/components/modules/user/userProfile/UserTrips";
@@ -111,26 +111,30 @@ export default async function ProfilePage({
 
   return (
     <div className="min-h-screen bg-slate-50/50 py-10">
-      <div className="container mx-auto px-4 space-y-8">
-        <ProfileDetails user={user.data} />
+      <Suspense fallback={<div>Loading Profile...</div>}>
+        <div className="container mx-auto px-4 space-y-8">
+          <ProfileDetails user={user.data} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-8">
-            <h2 className="text-2xl font-bold text-slate-900">Active Trips</h2>
-            <UserTrips trips={profileTrips.data} />
-          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-8">
+              <h2 className="text-2xl font-bold text-slate-900">
+                Active Trips
+              </h2>
+              <UserTrips trips={profileTrips.data} />
+            </div>
 
-          <div className="space-y-8">
-            <h2 className="text-2xl font-bold text-slate-900">Reviews</h2>
-            <ReviewsSection
-              currentUser={{ id: userInfo.id, name: userInfo.name }}
-              targetUserId={userid}
-              sharedTrips={reviewableTrips.data}
-              reviews={reviews.data}
-            />
+            <div className="space-y-8">
+              <h2 className="text-2xl font-bold text-slate-900">Reviews</h2>
+              <ReviewsSection
+                currentUser={{ id: userInfo.id, name: userInfo.name }}
+                targetUserId={userid}
+                sharedTrips={reviewableTrips.data}
+                reviews={reviews.data}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </Suspense>
     </div>
   );
 }

@@ -126,7 +126,7 @@ export function AdminPlanCard({
         <div className="flex items-center gap-2">
           <Switch
             checked={plan.isActive}
-            onCheckedChange={() => onToggleActive(plan.id, plan.isActive)}
+            // onCheckedChange={() => onToggleActive(plan.id, plan.isActive)}
           />
           <span className="text-xs font-medium text-slate-500">
             {plan.isActive ? "Active" : "Archived"}
@@ -136,7 +136,7 @@ export function AdminPlanCard({
         <Button
           variant="outline"
           size="sm"
-          onClick={() => onEdit(plan)}
+          // onClick={() => onEdit(plan)}
           className="gap-2"
         >
           <Edit2 className="w-3 h-3" /> Edit

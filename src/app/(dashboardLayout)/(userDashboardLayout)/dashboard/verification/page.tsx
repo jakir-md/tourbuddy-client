@@ -1,5 +1,6 @@
 import VerificationForm from "@/components/modules/user/verification/verificationForm";
 import { getVerifyStatus } from "@/services/auth/verifyUserProfile";
+import { Suspense } from "react";
 
 export default async function VerificationPage() {
   const verifyInfo = await getVerifyStatus();
@@ -9,9 +10,13 @@ export default async function VerificationPage() {
     isVerified = verifyInfo.data.status;
   }
   return (
-    <VerificationForm
-      isVerified={isVerified}
-      message={verifyInfo?.data?.message}
-    />
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <VerificationForm
+          isVerified={isVerified}
+          message={verifyInfo?.data?.message}
+        />
+      </Suspense>
+    </div>
   );
 }

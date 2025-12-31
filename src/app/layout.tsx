@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import LoginSuccessToast from "@/components/shared/LoginSuccessToast";
 import LogoutSuccessToast from "@/components/shared/LogoutSuccessToast";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tour Buddy",
+  title: "Travel Buddy",
   description:
     "The platform combines social networking and travel planning to enhance shared experiences and build a vibrant community of explorers.",
 };
@@ -33,8 +34,10 @@ export default function RootLayout({
       >
         {children}
         <Toaster richColors position="top-right" />
-        <LoginSuccessToast />
-        <LogoutSuccessToast />
+        <Suspense fallback={null}>
+          <LoginSuccessToast />
+          <LogoutSuccessToast />
+        </Suspense>
       </body>
     </html>
   );

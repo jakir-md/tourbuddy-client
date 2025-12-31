@@ -18,9 +18,14 @@ export default function SearchSection() {
 
   const onSubmit = (data: any) => {
     console.log("submit data", data);
-    data.startDate = getNewDate(data.startDate, 0);
-    router.push(`/explore?${queryStringFormatter(data)}`);
+    if (data.startDate !== "") data.startDate = getNewDate(data.startDate, 0);
+    let str = "";
+    if (data.searchTerm !== "" || data.category !== "") {
+      str = queryStringFormatter(data);
+    }
+    router.push(`/explore?${str}`);
   };
+  
   return (
     <div>
       <FormProvider {...form}>
@@ -29,7 +34,7 @@ export default function SearchSection() {
           <div className="mt-5"></div>
           <Button
             size="lg"
-            className="w-full h-14 md:h-12 bg-primary hover:bg-primary/90 text-lg shadow-lg shadow-primary/30"
+            className="hover:cursor-pointer w-full h-14 md:h-12 bg-primary hover:bg-primary/90 text-lg shadow-lg shadow-primary/30"
             disabled={form.formState.isSubmitting}
           >
             <Search className="w-5 h-5 mr-2" />

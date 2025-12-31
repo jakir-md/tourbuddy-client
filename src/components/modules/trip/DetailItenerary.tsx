@@ -1,13 +1,11 @@
 "use client";
 
-import React from "react";
 import {
   Utensils, // Food
   Camera, // Visit
   Bus, // Travel
   Bed, // Stay
   MapPin,
-  Clock,
   MoreHorizontal,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -18,8 +16,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ActivityType, ItineraryDay } from "@/types/trip.interface";
-import Image from "next/image";
+import { ActivityType, ItineraryDay,  } from "@/types/trip.interface";
 
 // Helper to get the right icon and color based on activity type
 const getActivityConfig = (type: ActivityType) => {
@@ -145,7 +142,7 @@ export default function DetailedItinerary({ days }: { days: ItineraryDay[] }) {
                             </div>
                           )}
 
-                          {activity.image && (
+                          {activity?.image && (
                             <div className="flex items-center gap-1.5 text-sm text-slate-500 mb-2">
                               <img
                                 src={activity.image}

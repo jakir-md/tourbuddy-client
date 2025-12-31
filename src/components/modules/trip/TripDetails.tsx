@@ -30,6 +30,8 @@ import { requestForJoining } from "@/services/joinRequest/joinRequest";
 import DetailedItinerary from "./DetailItenerary";
 import TripActionGatekeeper from "@/components/shared/TripActionGateKeeper";
 import { getUserInfo } from "@/services/auth/getUserInfo";
+import { IUserInfo } from "@/types/user.interface";
+import { ItineraryDay } from "@/types/trip.interface";
 
 // 1. Type Definitions based on your provided Data
 interface User {
@@ -41,10 +43,11 @@ interface User {
 
 type RequestStatus = "PENDING" | "ACCEPTED" | "REJECTED" | null;
 
-interface ItineraryItem {
+export interface ItineraryItem {
   day: number;
   title: string;
   description: string;
+  activities: string[];
 }
 
 interface TripData {
@@ -82,7 +85,7 @@ export default function TripDetails({
   requestStatus: RequestStatus;
   joinedUsers: IJoinedUsers[];
 }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUserInfo | null>(null);
   const [isImageModalOpen, setImageModalOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -117,7 +120,7 @@ export default function TripDetails({
     Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 
   // Parse Itinerary safely
-  let itineraryList: ItineraryItem[] = [];
+  let itineraryList: ItineraryDay[] = [];
   try {
     itineraryList = trip.itinerary;
   } catch (e) {
@@ -256,7 +259,10 @@ export default function TripDetails({
               </div>
             </Link>
             <Link href={`/profile/${trip.user.id}`}>
-              <Button variant="outline" className="hidden sm:flex hover:cursor-pointer">
+              <Button
+                variant="outline"
+                className="hidden sm:flex hover:cursor-pointer"
+              >
                 View Profile
               </Button>
             </Link>

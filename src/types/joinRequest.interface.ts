@@ -10,6 +10,7 @@ export interface IJoinRequest {
     title: string;
     slug: string;
     bannerImage: string;
+    id: string;
   };
   status: string;
   id: string;

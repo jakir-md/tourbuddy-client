@@ -1,7 +1,5 @@
+export const dynamic = "force-dynamic";
 
-
-export const page = () => {
-  return (
-    <div>page</div>
-  )
+export default function ForgetPasswordPage() {
+  return <div>page</div>;
 }

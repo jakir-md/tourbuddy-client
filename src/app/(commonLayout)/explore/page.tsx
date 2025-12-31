@@ -28,7 +28,7 @@ const ExplorePage = async ({
 
         <ExploreSearchFilters />
 
-        <Suspense fallback={<TableSkeleton columns={3} />}>
+        <Suspense fallback={null}>
           <div className="container mx-auto px-4 grid md:grid-cols-3 gap-4">
             {allTrips.map((item: any) => (
               <TripCard key={item.id} tripInfo={item} />

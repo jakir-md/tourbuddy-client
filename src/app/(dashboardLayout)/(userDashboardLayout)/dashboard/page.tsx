@@ -11,7 +11,7 @@ const UserDashboardPage = async () => {
 
   console.log({ analyticsData, upcomingTripInfo });
   return (
-    <div className="md:max-w-2xl max-w-xs mx-auto">
+    <div className="md:max-w-2xl max-w-xs mx-auto px-2">
       <UserStats data={analyticsData.data} />
       <UpcomingTrip trip={upcomingTripInfo.data} />
     </div>

@@ -55,7 +55,7 @@ export default function DashBoardSidebarContent({
                   <span className="truncate font-semibold">TravelBuddy</span>
                   <span className="truncate text-xs">
                     {user.role === "ADMIN"
-                      ? "Admin Dashboard"
+                      ? "Admin Dashboard" : user.role === "MODERATOR" ? "Moderator Dashboard" 
                       : "User Dashboard"}
                   </span>
                 </div>

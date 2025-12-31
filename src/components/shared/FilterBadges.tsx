@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useTransition } from "react";
+import { Suspense, useTransition } from "react";
 
 interface FilterBadge {
   paramName: string;
@@ -93,26 +93,28 @@ const FilterBadges = ({
 
   return (
     <div className={`flex items-center ${className}`} style={{ minHeight }}>
-      <div className="flex flex-wrap gap-2">
-        {badges.map((badge, index) => (
-          <Badge
-            key={`${badge.paramName}-${badge.value}-${index}`}
-            variant="outline"
-            className="px-2.5 py-1 h-7"
-          >
-            {badge.label}
-            <Button
-              variant="ghost"
-              onClick={() => removeFilter(badge.paramName, badge.value)}
-              className="ml-1.5 p-0 h-auto hover:bg-transparent hover:text-destructive transition-colors cursor-pointer"
-              aria-label={`Remove ${badge.label}`}
-              disabled={isPending}
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="flex flex-wrap gap-2">
+          {badges.map((badge, index) => (
+            <Badge
+              key={`${badge.paramName}-${badge.value}-${index}`}
+              variant="outline"
+              className="px-2.5 py-1 h-7"
             >
-              <X className="h-3 w-3" />
-            </Button>
-          </Badge>
-        ))}
-      </div>
+              {badge.label}
+              <Button
+                variant="ghost"
+                onClick={() => removeFilter(badge.paramName, badge.value)}
+                className="ml-1.5 p-0 h-auto hover:bg-transparent hover:text-destructive transition-colors cursor-pointer"
+                aria-label={`Remove ${badge.label}`}
+                disabled={isPending}
+              >
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          ))}
+        </div>
+      </Suspense>
     </div>
   );
 };

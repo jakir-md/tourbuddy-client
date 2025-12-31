@@ -44,7 +44,7 @@ const DeleteConfirmationDialog = ({
               </>
             )}
             <Input
-            className="mt-1"
+              className="mt-1"
               value={confirmMessage}
               onChange={(e) => setConfirmMessage(e.target.value)}
               placeholder="Reject Message"
@@ -58,7 +58,7 @@ const DeleteConfirmationDialog = ({
             disabled={isDeleting}
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
-            {isDeleting ? "Deleting..." : "Delete"}
+            {isDeleting ? "Rejecting..." : "Reject"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

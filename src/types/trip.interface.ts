@@ -8,12 +8,8 @@ export interface Activity {
   type: ActivityType; // Determines the icon (Fork, Camera, Bus)
   title: string; // "Starbucks Reserve"
   description?: string; // "Get the matcha latte."
-  location?: {
-    // Geo-coordinates for the map
-    name: string;
-    lat?: number;
-    lng?: number;
-  };
+  location?:string;
+  image?: string; // URL to an image representing the activity
 }
 
 export interface ItineraryDay {

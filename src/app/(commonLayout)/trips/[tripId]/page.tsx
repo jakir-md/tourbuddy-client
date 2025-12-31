@@ -6,6 +6,7 @@ import {
   getJoinRequestStatus,
 } from "@/services/joinRequest/joinRequest";
 import { IUserInfo } from "@/types/user.interface";
+import { Suspense } from "react";
 
 const page = async ({ params }: { params: any }) => {
   const param = await params;
@@ -17,12 +18,14 @@ const page = async ({ params }: { params: any }) => {
   const status = joinRequest.success ? joinRequest?.data?.status : null;
   return (
     <div>
-      <TripDetails
-        loginUserId={loginUserInfo.id}
-        trip={result.data}
-        requestStatus={status}
-        joinedUsers={joinedUsers.data}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <TripDetails
+          loginUserId={loginUserInfo.id}
+          trip={result.data}
+          requestStatus={status}
+          joinedUsers={joinedUsers.data}
+        />
+      </Suspense>
     </div>
   );
 };
