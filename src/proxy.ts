@@ -16,7 +16,6 @@ export async function proxy(request: NextRequest) {
     request.nextUrl.searchParams.has("tokenRefreshed");
 
   if (hasTokenRefreshedParams) {
-    console.log("token refreshed params"); //not
     const url = request.nextUrl.clone();
     url.searchParams.delete("tokenRefreshed");
     return NextResponse.redirect(url);
@@ -25,7 +24,6 @@ export async function proxy(request: NextRequest) {
   const tokenRefreshedResult = await getNewAccessToken();
 
   if (tokenRefreshedResult.tokenRefreshed) {
-    console.log("token refreshed"); //not
     const url = request.nextUrl.clone();
     url.searchParams.set("tokenRefreshed", "true");
     return NextResponse.redirect(url);
@@ -46,12 +44,9 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
     userRole = verifyToken?.role;
-    console.log("verified token role", userRole);
   }
 
   const routeOwner = getRouteOwner(pathname);
-
-  console.log("route owner", routeOwner);
   
   const isAuth = isAuthRoute(pathname);
 
@@ -61,7 +56,6 @@ export async function proxy(request: NextRequest) {
     );
   }
 
-  console.log("pathname", pathname);
   if (routeOwner === null) {
     return NextResponse.next();
   }
@@ -88,7 +82,6 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  console.log("proxy is called");
   return NextResponse.next();
 }
 

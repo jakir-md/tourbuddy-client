@@ -14,7 +14,6 @@ const page = async ({ params }: { params: any }) => {
   const joinRequest = await getJoinRequestStatus(result.data.id);
   const loginUserInfo = (await getUserInfo()) as IUserInfo;
   const joinedUsers = await getJoinedProfiles(param.tripId);
-  console.log("joinedUsers", joinedUsers);
   const status = joinRequest.success ? joinRequest?.data?.status : null;
   return (
     <div>

@@ -24,7 +24,7 @@ export function queryStringFormatter(searchParamsObj: {
   const queryArray = Object.entries(searchParamsObj).map(([key, value]) => {
     if (Array.isArray(value)) {
       return value.map((v) => `${key}=${encodeURIComponent(v)}`).join("&");
-    } else if (value !== undefined) {
+    } else if (value !== undefined && value !== "") {
       return `${key}=${encodeURIComponent(value)}`;
     }
     return "";

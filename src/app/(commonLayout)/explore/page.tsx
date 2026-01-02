@@ -20,8 +20,8 @@ const ExplorePage = async ({
   const allTrips = allTripsResponse?.data || [];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="space-y-6">
+    <div className="container mx-auto px-4 py-4">
+      <div className="space-y-3">
         <div>
           <p className="text-muted-foreground mt-2">Search all trips</p>
         </div>
@@ -29,7 +29,7 @@ const ExplorePage = async ({
         <ExploreSearchFilters />
 
         <Suspense fallback={null}>
-          <div className="container mx-auto px-4 grid md:grid-cols-3 gap-4">
+          <div className="container mx-auto grid md:grid-cols-3 gap-4">
             {allTrips.map((item: any) => (
               <TripCard key={item.id} tripInfo={item} />
             ))}

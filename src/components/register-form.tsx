@@ -46,16 +46,18 @@ const RegisterForm = () => {
           <Field>
             <FieldLabel htmlFor="profilePhoto">Profile Photo</FieldLabel>
             {selectedFile && (
-              <Image
-                src={
-                  typeof selectedFile === "string"
-                    ? selectedFile
-                    : URL.createObjectURL(selectedFile)
-                }
-                alt="Profile photo review"
-                width={20}
-                height={20}
-              />
+              <div className="">
+                <Image
+                  src={
+                    typeof selectedFile === "string"
+                      ? selectedFile
+                      : URL.createObjectURL(selectedFile)
+                  }
+                  alt="Profile photo review"
+                  width={200}
+                  height={150}
+                />
+              </div>
             )}
             <Input
               id="file"

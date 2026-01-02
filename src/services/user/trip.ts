@@ -1,4 +1,6 @@
+"use server";
 import { serverFetch } from "@/lib/server-fetch";
+import { revalidateTag } from "next/cache";
 
 export const createNewTrip = async (data: any) => {
   try {
@@ -10,6 +12,9 @@ export const createNewTrip = async (data: any) => {
     });
 
     const result = await response.json();
+    if (result.success) {
+      revalidateTag("all-trips", { expire: 0 });
+    }
     return result;
   } catch (error: any) {
     console.log("Error occured creating new tour subscirption", error);

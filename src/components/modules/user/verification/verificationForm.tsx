@@ -66,7 +66,6 @@ export default function VerificationForm({
     };
 
     try {
-      console.log("is verified status", isVerified);
       const result = await verifyUserProfile(uploadPayload);
 
       if (result.success) {

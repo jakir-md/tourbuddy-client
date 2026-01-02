@@ -3,14 +3,10 @@
 import {
   useForm,
   FormProvider,
-  useFormContext,
-  useFieldArray,
 } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import ItineraryForm from "./ItineraryForm";
 import { tripFormSchema, TripFormValues } from "@/zod/trip.validation";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { BasicInfo } from "./BasicInfo";
 import { DatePicker } from "./DatePicker";
 import { useState } from "react";
@@ -18,9 +14,11 @@ import { uploadImage } from "@/services/fileUpload/imageUpload";
 import { createNewTrip } from "@/services/user/trip";
 import { toast } from "sonner";
 import { getNewDate } from "@/lib/getNewDate";
+import { useRouter } from "next/navigation";
 
 export default function CreateTripForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
   const methods = useForm<TripFormValues>({
     // resolver: zodResolver(tripFormSchema),
     defaultValues: {
@@ -36,7 +34,6 @@ export default function CreateTripForm() {
   });
 
   const onSubmit = async (data: TripFormValues) => {
-    console.log("data", data);
     setIsSubmitting(true);
     try {
       const bannerImage = await uploadImage(data.bannerImage);
@@ -69,11 +66,11 @@ export default function CreateTripForm() {
         itinerary: finalItinerary,
       };
 
-      console.log("trip creation paylaod", payload);
       const result = await createNewTrip(payload);
       if (result.success) {
         methods.reset();
         toast.success("Trip Published!");
+        router.push(`/trip/${result.data.id}`);
       }
     } catch (error) {
       console.error(error);

@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 interface TripCardProps {
   tripInfo: {
     id: string;
+    title: string;
     slug:string;
     destination: string;
     startDate: string;
@@ -39,6 +40,7 @@ export function TripCard({
     startDate,
     type,
     user,
+    title,
     slug,
     bannerImage
   },
@@ -74,7 +76,7 @@ export function TripCard({
           <div className="flex justify-between items-start">
             <div>
               <h3 className="font-bold text-lg text-slate-900 group-hover:text-primary transition-colors line-clamp-1">
-                {destination}
+                {title}
               </h3>
               <div className="flex items-center text-slate-500 text-sm mt-1">
                 <Calendar className="w-3.5 h-3.5 mr-1.5" />

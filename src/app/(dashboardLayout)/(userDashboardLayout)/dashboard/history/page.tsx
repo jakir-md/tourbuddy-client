@@ -5,7 +5,6 @@ import { Suspense } from "react";
 
 export default async function FetchAllUserTrips() {
   const allUserTrips = await fetchAllUserTrips();
-  console.log("user trips", allUserTrips);
   return (
     <div className="space-y-6 px-4 pt-4">
       <Suspense fallback={<div>Loading...</div>}>

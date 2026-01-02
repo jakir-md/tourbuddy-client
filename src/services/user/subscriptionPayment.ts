@@ -16,9 +16,7 @@ export const upgradeSubscription = async (planId: string, amount: number) => {
         },
       }
     );
-    console.log("purchase subc before")
     const result = await response.json();
-    console.log("purchase subc after")
     return result;
   } catch (error: any) {
     console.log("Error occured buying subscirption", error)

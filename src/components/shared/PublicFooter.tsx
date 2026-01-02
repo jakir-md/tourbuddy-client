@@ -28,10 +28,10 @@ export default function PublicFooter() {
           <div className="lg:col-span-5 space-y-4">
             <Link href="/" className="flex items-center gap-2 group mb-4">
               <div className="bg-primary/20 p-2 rounded-lg">
-                <Globe className="w-6 h-6 text-primary" />
+                <Globe className="w-6 h-6 text-white" />
               </div>
               <span className="text-2xl font-bold tracking-tight text-white">
-                Travel<span className="text-primary">Buddy</span>
+                Travel<span className="text-white">Buddy</span>
               </span>
             </Link>
             <p className="text-slate-400 leading-relaxed max-w-sm">

@@ -4,7 +4,6 @@ import { serverFetch } from "@/lib/server-fetch";
 import { revalidateTag } from "next/cache";
 
 export const updateApprovalStatus = async (payload: any) => {
-  console.log("payload for update", payload);
   try {
     const response = await serverFetch.post("/trip/update-status", {
       body: JSON.stringify(payload),

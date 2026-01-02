@@ -16,6 +16,7 @@ export const verifyUserProfile = async (data: any) => {
     const result = await response.json();
     if (result.success) {
       revalidateTag("profile-verification", { expire: 0 });
+      revalidateTag("user-info", { expire: 0 });
     }
     return result;
   } catch (error: any) {
@@ -32,7 +33,6 @@ export const verifyUserProfile = async (data: any) => {
 };
 
 export const getVerifyStatus = async () => {
-  console.log("verification status");
   try {
     const response = await serverFetch.get("/user/verification-status", {
       next: {
@@ -91,6 +91,9 @@ export const updateVerifyRequests = async (
     });
 
     const result = await response.json();
+    if (result.success) {
+      revalidateTag("user-info", { expire: 0 });
+    }
     return result;
   } catch (error: any) {
     console.log(

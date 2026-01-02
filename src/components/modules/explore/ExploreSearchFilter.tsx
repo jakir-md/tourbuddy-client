@@ -39,7 +39,6 @@ export default function ExploreSearchFilters() {
   useEffect(() => {
     const loadData = async () => {
       const result = await getAllStartPoints();
-      console.log("all startPoints", result);
       if (result.success) {
         setStartPoints([...result.data]);
       }
@@ -66,8 +65,6 @@ export default function ExploreSearchFilters() {
     [router]
   );
 
-  console.log("start Date", startDate);
-
   useEffect(() => {
     if (startDate !== undefined) {
       updateFilters("startDate", getNewDate(startDate, 0));
@@ -92,7 +89,7 @@ export default function ExploreSearchFilters() {
     searchParams.get("searchTerm") || searchParams.get("startDate");
 
   return (
-    <div className="space-y-4">
+    <div className="">
       <Suspense fallback={<div>Loading...</div>}>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
@@ -104,26 +101,28 @@ export default function ExploreSearchFilters() {
               className="pl-10"
             />
           </div>
-          <SelectFilter
-            options={[
-              { label: "ADVENTURE", value: "ADVENTURE" },
-              { label: "FOODIE", value: "FOODIE" },
-              { label: "BEACH", value: "BEACH" },
-              { label: "CULTURAL", value: "CULTURAL" },
-              { label: "CAMPAIGN", value: "CAMPAIGN" },
-              { label: "WORK", value: "WORK" },
-              { label: "PHOTO", value: "PHOTO" },
-              { label: "ROAD_TRIP", value: "ROAD_TRIP" },
-            ]}
-            paramName="category"
-            placeholder="Select a Type"
-          />
+          <div className="flex justify-between gap-4">
+            <SelectFilter
+              options={[
+                { label: "ADVENTURE", value: "ADVENTURE" },
+                { label: "FOODIE", value: "FOODIE" },
+                { label: "BEACH", value: "BEACH" },
+                { label: "CULTURAL", value: "CULTURAL" },
+                { label: "CAMPAIGN", value: "CAMPAIGN" },
+                { label: "WORK", value: "WORK" },
+                { label: "PHOTO", value: "PHOTO" },
+                { label: "ROAD_TRIP", value: "ROAD_TRIP" },
+              ]}
+              paramName="category"
+              placeholder="Select a Type"
+            />
 
-          <SelectFilter
-            placeholder="Select a StartPoint"
-            paramName="startPoint"
-            options={startPoints}
-          />
+            <SelectFilter
+              placeholder="Select a StartPoint"
+              paramName="startPoint"
+              options={startPoints}
+            />
+          </div>
           <div className="flex flex-col gap-2">
             <Popover open={startOpen} onOpenChange={setStartOpen}>
               <PopoverTrigger asChild>

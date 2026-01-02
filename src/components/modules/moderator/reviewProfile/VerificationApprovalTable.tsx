@@ -51,7 +51,6 @@ export function VerificationApprovalTable({
   };
 
   const handleConfirmReject = async (message?: string) => {
-    console.log("rejected item", rejectItem, message);
     try {
       const result = await updateVerifyRequests(
         rejectItem?.id as string,

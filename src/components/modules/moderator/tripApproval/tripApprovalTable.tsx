@@ -31,7 +31,6 @@ export function TripApprovalTable({
   };
 
   const handleReject = (singleTripInfo: ITripApprovalInfo) => {
-    console.log("rejected item", singleTripInfo);
     setRejectItem(singleTripInfo);
   };
 

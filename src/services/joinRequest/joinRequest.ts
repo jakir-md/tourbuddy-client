@@ -30,7 +30,6 @@ export const getJoinRequestStatus = async (tripId: string) => {
 };
 
 export const requestForJoining = async (tripId: string, adminId: string) => {
-  console.log("request for joining called");
   try {
     const response = await serverFetch.post("/join-request/request", {
       body: JSON.stringify({ tripId, adminId }),

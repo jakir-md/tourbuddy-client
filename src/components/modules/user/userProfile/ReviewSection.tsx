@@ -122,13 +122,6 @@ function WriteReviewCard({
     if (!selectedTrip || rating === 0) return;
 
     setIsSubmitting(true);
-    // Simulate API Call
-    console.log("Submitting Review:", {
-      tripId: selectedTrip,
-      rating,
-      comment,
-      targetId,
-    });
 
     const reviewData = { tripId: selectedTrip, rating, comment, targetId };
     const result = await postUserReview(reviewData);

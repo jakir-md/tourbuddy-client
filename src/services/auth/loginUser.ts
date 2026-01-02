@@ -20,6 +20,7 @@ export const loginUser = async (
 ): Promise<any> => {
   try {
     const redirectTo = formData.get("redirect") || null;
+
     let accessTokenObject: null | any = null;
     let refreshTokenObject: null | any = null;
 
@@ -37,9 +38,6 @@ export const loginUser = async (
       loginValidationZodSchema
     ).data;
 
-    console.log("validatedPayload", validatedPayload);
-
-    console.log("login ts: before success");
     const res = await serverFetch.post("/auth/login", {
       body: JSON.stringify(validatedPayload),
       headers: {
@@ -48,7 +46,6 @@ export const loginUser = async (
     });
 
     const result = await res.json();
-    console.log("login ts: after success");
 
     const setCookieHeaders = res.headers.getSetCookie();
 
@@ -123,7 +120,7 @@ export const loginUser = async (
     if (error?.digest?.startsWith("NEXT_REDIRECT")) {
       throw error;
     }
-    console.log(error);
+    console.log("Error occured during login", error);
     return {
       success: false,
       message: `${

@@ -4,7 +4,6 @@ import { Suspense } from "react";
 
 export default async function VerificationPage() {
   const verifyInfo = await getVerifyStatus();
-  console.log("verifyInfo", verifyInfo);
   let isVerified: string | null = null;
   if (verifyInfo.data) {
     isVerified = verifyInfo.data.status;

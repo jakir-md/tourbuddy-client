@@ -5,7 +5,6 @@ import { Suspense } from "react";
 
 export default async function VerificationApprovalPage() {
   const verifyRequests = await getAllVerifyRequests();
-  console.log("from verify requests", verifyRequests);
   return (
     <div className="space-y-6 px-4 pt-4">
       <Suspense fallback={<div>Loading...</div>}>

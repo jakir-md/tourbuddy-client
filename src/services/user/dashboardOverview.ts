@@ -2,9 +2,9 @@
 
 import { serverFetch } from "@/lib/server-fetch";
 
-export const getAnalytics = async () => {
+export const getAnalytics = async (userid: string) => {
   try {
-    const response = await serverFetch.get("/trip/user-analytics");
+    const response = await serverFetch.get(`/trip/user-analytics/${userid}`);
     const result = await response.json();
     return result;
   } catch (error: any) {

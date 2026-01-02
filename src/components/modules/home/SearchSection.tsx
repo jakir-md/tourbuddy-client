@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import { FormProvider, useForm } from "react-hook-form";
 import { Search } from "lucide-react";
@@ -17,15 +18,10 @@ export default function SearchSection() {
   });
 
   const onSubmit = (data: any) => {
-    console.log("submit data", data);
     if (data.startDate !== "") data.startDate = getNewDate(data.startDate, 0);
-    let str = "";
-    if (data.searchTerm !== "" || data.category !== "") {
-      str = queryStringFormatter(data);
-    }
-    router.push(`/explore?${str}`);
+    router.push(`/explore?${queryStringFormatter(data)}`);
   };
-  
+
   return (
     <div>
       <FormProvider {...form}>

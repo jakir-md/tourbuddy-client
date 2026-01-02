@@ -92,7 +92,6 @@ export default function TripDetails({
   useEffect(() => {
     const loadData = async () => {
       const result = await getUserInfo();
-      console.log("user info from trip", result);
       setUser(result);
     };
     loadData();

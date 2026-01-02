@@ -6,7 +6,7 @@ const LoginPage = async ({
 }: {
   searchParams: { redirect?: string };
 }) => {
-  const params = searchParams || {};
+  const params = await searchParams || {};
   return (
     <div className="flex min-h-screen items-center justify-center">
       <Suspense fallback={<div>Loading...</div>}>

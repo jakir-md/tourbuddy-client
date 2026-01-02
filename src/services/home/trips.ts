@@ -6,11 +6,12 @@ export const getAllTrips = async (queryString?: string) => {
     const response = await serverFetch.get(
       `/trip/all-trips${queryString ? `?${queryString}` : ""}`,
       {
-        cache: "no-store",
+        next: {
+          tags: ["all-trips"],
+        },
       }
     );
     const result = await response.json();
-    console.log("all trips from server", result);
     return result;
   } catch (error: any) {
     console.log("Error occured while fetching all trips", error);
@@ -24,9 +25,30 @@ export const getAllTrips = async (queryString?: string) => {
   }
 };
 
+export const getTrendingTrips = async () => {
+  try {
+    const response = await serverFetch.get(`/trip/trending-trips`, {
+      next: { revalidate: 60 },
+    });
+    const result = await response.json();
+    return result;
+  } catch (error: any) {
+    console.log("Error occured while fetching all trending trips", error);
+    return {
+      data: [],
+      error:
+        process.env.NODE_ENV === "development"
+          ? error.message
+          : "Something went wrong while fetching trending trips",
+    };
+  }
+};
+
 export const getTripById = async (id: string) => {
   try {
-    const response = await serverFetch.get(`/trip/${id}`);
+    const response = await serverFetch.get(`/trip/${id}`, {
+      next: { tags: [`trip-${id}`] },
+    });
     const result = await response.json();
     return result;
   } catch (error: any) {

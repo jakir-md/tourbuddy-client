@@ -36,7 +36,7 @@ interface User {
   id: string;
   name: string;
   email: string;
-  image?: string | null;
+  profilePhoto?: string | null;
   role: "USER" | "ADMIN" | "MODERATOR";
   isVerified?: boolean;
   subscriptionStatus?: "FREE" | "PREMIUM";
@@ -67,7 +67,6 @@ export default function PublicNavbar({ user }: NavbarProps) {
   `;
 
   const handleLogout = async () => {
-    console.log("logged out clicked");
     await logOut();
   };
   // 3. Navigation Links Config
@@ -157,7 +156,7 @@ export default function PublicNavbar({ user }: NavbarProps) {
                           : "border-slate-100"
                       }`}
                     >
-                      <AvatarImage src={user.image || ""} alt={user.name} />
+                      <AvatarImage src={user.profilePhoto || ""} alt={user.name} />
                       <AvatarFallback className="bg-slate-100 font-medium">
                         {user.name.substring(0, 2).toUpperCase()}
                       </AvatarFallback>

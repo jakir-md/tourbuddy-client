@@ -12,8 +12,10 @@ import {
   Camera,
   Briefcase,
   ArrowRight,
+  ArrowUpRight,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 const categories = [
   {
@@ -92,10 +94,9 @@ const categories = [
 
 export default function BrowseCategories() {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-10 bg-white">
       <div className="container mx-auto px-4">
-        {/* Compact Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
+        <div className="flex flex-col md:flex-row justify-between mb-8 gap-4">
           <div className="space-y-2">
             <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
               Categories 🎒
@@ -111,11 +112,6 @@ export default function BrowseCategories() {
             View all <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
-
-        {/* GRID CHANGES: 
-           grid-cols-2 (Mobile) -> grid-cols-3 (Tablet) -> grid-cols-4 (Desktop) 
-           gap-3 (Tighter spacing)
-        */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
           {categories.map((category) => (
             <Link
@@ -160,6 +156,19 @@ export default function BrowseCategories() {
               </Card>
             </Link>
           ))}
+        </div>
+        <div className="flex justify-between  mt-10">
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+            Season's Best
+          </h1>
+          <Link href="/explore">
+            <Button
+              variant="outline"
+              className="hover:cursor-pointer md:flex gap-2"
+            >
+              Explore All <ArrowUpRight className="w-4 h-4" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

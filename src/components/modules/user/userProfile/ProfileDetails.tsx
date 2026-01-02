@@ -20,9 +20,13 @@ interface ProfileProps {
     createdAt: Date;
     _count: { tripsCreated: number; reviewsReceived: number };
   };
+  stats: {
+    tripsCreated: number;
+    tripsJoined: number;
+  };
 }
 
-export default function ProfileDetails({ user }: ProfileProps) {
+export default function ProfileDetails({ user, stats }: ProfileProps) {
   return (
     <Card className="border-slate-200 pt-0 shadow-sm overflow-hidden">
       {/* Cover Banner (Aesthetic) */}
@@ -74,7 +78,7 @@ export default function ProfileDetails({ user }: ProfileProps) {
               <div className="flex gap-4">
                 <div className="text-center p-3 bg-slate-50 rounded-lg border border-slate-100 min-w-[80px]">
                   <p className="text-xl font-bold text-slate-900">
-                    {user?._count?.tripsCreated || 20}
+                    {stats.tripsCreated || 0}
                   </p>
                   <p className="text-xs text-slate-500 font-medium uppercase">
                     Trips
@@ -82,10 +86,10 @@ export default function ProfileDetails({ user }: ProfileProps) {
                 </div>
                 <div className="text-center p-3 bg-slate-50 rounded-lg border border-slate-100 min-w-[80px]">
                   <p className="text-xl font-bold text-slate-900">
-                    {user?._count?.reviewsReceived || 10}
+                    {stats.tripsJoined || 0}
                   </p>
                   <p className="text-xs text-slate-500 font-medium uppercase">
-                    Reviews
+                    Joined
                   </p>
                 </div>
               </div>
