@@ -22,7 +22,7 @@ export default async function page() {
             ))}
           </div>
         </div>
-        <TopTravelers />
+        <TopTravelers />;
         <WhyChooseUs />
       </Suspense>
     </>

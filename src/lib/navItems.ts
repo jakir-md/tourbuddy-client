@@ -126,7 +126,7 @@ export const adminNavItems = (): NavSection[] => {
     {
       title: "User Management",
       items: [
-        { title: "All Users", url: "/admin/dashboard/users", icon: "Users" },
+        { title: "All Users", url: "/admin/dashboard/manage-users", icon: "Users" },
         {
           title: "ID Verification",
           url: "/admin/dashboard/approve-profiles",
@@ -143,12 +143,12 @@ export const adminNavItems = (): NavSection[] => {
           icon: "Map",
           url: "/admin/dashboard/approve-trips",
         },
-        {
-          title: "Reports & Flags",
-          url: "/admin/dashboard/reports",
-          icon: "Flag",
-          badge: 2,
-        },
+        // {
+        //   title: "Reports & Flags",
+        //   url: "/admin/dashboard/reports",
+        //   icon: "Flag",
+        //   badge: 2,
+        // },
       ],
     },
     {
@@ -159,11 +159,11 @@ export const adminNavItems = (): NavSection[] => {
           url: "/admin/dashboard/manage-plans",
           icon: "CreditCard",
         },
-        {
-          title: "Platform Settings",
-          url: "/admin/dashboard/settings",
-          icon: "Settings",
-        },
+        // {
+        //   title: "Platform Settings",
+        //   url: "/admin/dashboard/settings",
+        //   icon: "Settings",
+        // },
       ],
     },
   ];

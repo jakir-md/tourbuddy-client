@@ -73,7 +73,7 @@ export default function PublicNavbar({ user }: NavbarProps) {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/explore", label: "Explore Trips" },
-    { href: "/about", label: "How it Works" },
+    { href: "/how-works", label: "How it Works" },
   ];
 
   return (
