@@ -63,7 +63,7 @@ It integrates seamlessly with a robust backend to deliver:
 
 ### **1️⃣ Clone the repository**
 ```bash
-git clone [https://github.com/jakir-md/tourbuddy-client](https://github.com/jakir-md/tourbuddy-client)
+git clone https://github.com/jakir-md/tourbuddy-client
 cd tourbuddy-frontend
 npm install
 

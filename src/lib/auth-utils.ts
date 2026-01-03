@@ -11,11 +11,10 @@ export const commonProtectedRoutes: RouteConfig = {
   exact: [
     "/my-profile",
     "/settings",
-    "/profile",
     "/change-password",
     "/reset-password",
   ],
-  patterns: [],
+  patterns: [/^\/profile(\/.*)?$/],
 };
 
 export const adminProtectedRoutes: RouteConfig = {
