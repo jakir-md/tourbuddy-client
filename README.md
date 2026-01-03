@@ -1,6 +1,6 @@
 # 🌍 TourBuddy | Frontend
 
-![License](https://img.shields.io/badge/License-MIT-blue.svg) ![Next.js](https://img.shields.io/badge/Next.js-15.x-000000) ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6) ![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
+![License](https://img.shields.io/badge/License-MIT-blue.svg) ![Next.js](https://img.shields.io/badge/Next.js-16.x-000000) ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6) ![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
 
 > **A secure, community-driven travel platform connecting travelers with verified local hosts.**
 > Built with the latest Next.js 15 ecosystem to ensure speed, SEO, and a seamless booking experience.
