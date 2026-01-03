@@ -70,7 +70,7 @@ export default function CreateTripForm() {
       if (result.success) {
         methods.reset();
         toast.success("Trip Published!");
-        router.push(`/trip/${result.data.slug}`);
+        router.push(`/trips/${result.data.slug}`);
       }
     } catch (error) {
       console.error(error);
