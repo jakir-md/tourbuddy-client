@@ -29,8 +29,15 @@ export const loginUser = async (
       password: formData.get("password"),
     };
 
+    console.log({ payload });
+
     if (zodValidator(payload, loginValidationZodSchema).success === false) {
-      return zodValidator(payload, loginValidationZodSchema);
+      return {
+        ...zodValidator(payload, loginValidationZodSchema),
+        inputs: {
+          email: payload.email,
+        },
+      };
     }
 
     const validatedPayload = zodValidator(
