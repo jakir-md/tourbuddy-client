@@ -98,9 +98,13 @@ export const rejectJoinRequest = async (tripId: string, userId: string) => {
   }
 };
 
-export const getAllRequests = async () => {
+export const getAllRequests = async (params: {
+  page?: string;
+  limit?: string;
+}) => {
+  const query = new URLSearchParams(params as any).toString();
   try {
-    const response = await serverFetch.get("/join-request", {
+    const response = await serverFetch.get(`/join-request?${query}`, {
       cache: "no-store",
       next: { tags: ["join-requests"] },
     });
@@ -138,9 +142,12 @@ export const getJoinedProfiles = async (slug: string) => {
   }
 };
 
-export const joinedTrips = async () => {
+export const joinedTrips = async (param: any) => {
+  const query = new URLSearchParams(param as any).toString();
   try {
-    const response = await serverFetch.get(`/join-request/joined-trips`);
+    const response = await serverFetch.get(
+      `/join-request/joined-trips?${query}`
+    );
     const result = await response.json();
     return result;
   } catch (error: any) {
